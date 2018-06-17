@@ -1,0 +1,189 @@
+body {
+  width: 100%;
+  height: 100%;
+}
+a {
+  color: inherit; 
+  text-decoration: inherit; /* no underline */
+}
+h2{
+  color:#24404C;
+}
+
+
+.header{
+  height:80px;
+  line-height:80px;
+  background-color:#6EC1E4;
+  position: relative;
+  width:100%;
+  top:0;
+  left:0;
+    display: flex;
+  /*justify-content: center;*/
+  align-items: center; 
+  color:#fff;
+  font-size:20px;
+}
+.logo{
+  background-image: url('../images/eosdaclogo.png');
+  background-repeat: no-repeat;
+  background-size: 40px;
+  display:block;
+  width:170px;
+  line-height:40px;
+  text-align: right;
+  height:40px;
+  margin-left:10px;
+  margin-right:10px;
+  cursor: pointer;
+}
+.header_group_right{
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  /*background-color: blue;*/
+  padding-right:20px;
+  font-size:16px;
+  /*font-weight: bold;*/
+}
+.refresh{
+  display:inline-block;
+  background-repeat: no-repeat;
+  background-image: url('../images/refresh.svg');
+  background-size: cover;
+  cursor:pointer;
+  margin-left:8px;
+  width:20px;
+  height:20px;
+}
+.switchnetwork option{
+  color:black!important;
+}
+.loading{
+  background-repeat: no-repeat;
+  background-image: url('../images/loader.svg');
+  background-size: 20px 20px;
+  cursor:pointer;
+  min-height:50px;
+
+}
+#account_info{
+  width:225px;
+  position:relative;
+  background-color:#DEE2E4;
+  border:1px solid #9CA8AE;
+  border-radius: 3px;
+  padding:10px;
+  font-size:14px;
+  /*margin-top:100px;*/
+  margin: 10px auto;
+}
+#account_info span{
+  font-weight:bold;
+  font-size:10px;
+}
+
+.account_icon{
+    
+
+
+    /*float: left;*/
+    /*margin: 0 6px 0 0;*/
+}
+
+
+
+
+.pure-menu-selected a{
+  background-color: #EEEEEE;
+  cursor: default !important;
+
+}
+
+.slideout-menu {
+  background-color:#C3DAE4;
+  position: absolute;
+  top: 80px;
+  bottom: 0;
+  width: 256px;
+  /*height:100%;*/
+  min-height: 100vh;
+  /*overflow-y: scroll;*/
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+}
+
+#menu{
+  box-sizing: border-box;
+}
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  background-color: #FFF; /* A background-color is required */
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
+
+@media screen and (min-width: 780px) {
+  .slideout-panel {
+    margin-left: 256px;
+  }
+
+  .slideout-menu {
+    display: block;
+  }
+
+  .toggle-button {
+    display: none;
+  }
+}
+
+.popupmsg{
+  z-index:9999;
+  position: fixed;
+  width: 700px;
+  text-align:center;
+  border-radius:3px;
+  margin: 0px auto; /* Will not center vertically and won't work in IE6/7. */
+  top:10px;
+  left: 0;
+  right: 0;
+  padding:10px;
+   background:lightgreen;
+}
+
+    section{
+      padding:20px;
+      border-bottom: 1px solid #D4D4D4;
+    }
+        .button-success {
+            background: rgb(28, 184, 65); /* this is a green */
+            color:white;
+        }
+        .button-error {
+            background: rgb(202, 60, 60); /* this is a maroon */
+        }
+
+.output2{
+  display:none;
+}
