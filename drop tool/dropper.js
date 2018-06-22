@@ -12,7 +12,7 @@ class Drop {
 		//sender details
 		this.user = {account:'kasperkasper', wif:'5Js1AdTmLo3PUPNtrEw4kKJpRaviLtmTXXAi5JHhnW1HCbJKXT6'};
 		this.user.consumables = { freenet: null, freecpu: null, freeram: null };
-
+		this.auth = { authorization: [ this.user.account+'@active' ] };
 		//token account and symbol and memo
 		this.token = {account: 'kasperkasper' , symbol: 'BEAST'};
 		this.memo ='test';
