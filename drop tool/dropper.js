@@ -14,20 +14,20 @@ const pMap = require('p-map');
 class Drop {
 	constructor() {
 		//script mode
-		this.script_mode = 'verify';  //drop, verify (for drop verification).
+		this.script_mode = 'drop';  //drop, verify (for drop verification).
 
 		//sender details
-		this.user = {account:'kasperkasper', wif:'wifkey'};
+		this.user = {account:'kasperkasper', wif:'xxxxxxxxxxxxx'};
 		this.user.consumables = { freenet: null, freecpu: null, freeram: null };
 		this.auth = { authorization: [ this.user.account+'@active' ] };
 		//token account and symbol and memo
 		this.token = {account: 'kasperkasper' , symbol: 'BEAST'};
-		this.memo ='test';
+		this.memo ='droppppp';
 
 		//general performance settings
-		this.batch_size = 160; //number of accounts processed in each transaction for dropping (minus not existing ones)
-		this.rpc_speed = 1; //number of simultanous rpc calls. used for account check and retrieving balance.
-		this.pause_time = 200; //pause between each transaction in millis. zero should be fine. on localhost you might need a small pauze ie.250ms
+		this.batch_size = 30; //number of accounts processed in each transaction for dropping (minus not existing ones)
+		this.rpc_speed = 10; //number of simultanous rpc calls. used for account check and retrieving balance.
+		this.pause_time = 0; //pause between each transaction in millis. zero should be fine. on localhost you might need a small pauze ie.250ms
 
 		/************IMPORTANT****************
 		database settings and schema names
@@ -35,7 +35,7 @@ class Drop {
 				1) name: trx , default value: '', varchar (80)
 				2) name: account_valid, default value: 1, tinyint (1)
 		*/
-		this.db_config = { host: "localhost", user: "kasperfish", password: "xxxxxxxxxx", database: "eosdac" };
+		this.db_config = { host: "localhost", user: "kasperfish", password: "xxxxxxxxx", database: "eosdac" };
 		this.table_name = 'eosdac_sql_master'; //the table that holds your data
 		this.column_name_token_amount = 'eosdac_tokens'; //the column name that holds the token amount that needs to be dropped. Must have correct decimals corresponding to the contract.
 		this.column_name_accounts = 'account_name'; //the column name of the accounts that need to be processed.
@@ -155,8 +155,10 @@ class Drop {
 							return el[0];// accountname
 						}
 					})
-					let db = await this.pool.execute(`UPDATE ${this.table_name} SET trx = '${tx.transaction_id}' WHERE ${self.column_name_accounts} IN ${JSON.stringify(names).replace('[','(').replace(']',')')}`);
-					self.drop();	
+					let db = await this.pool.execute(`UPDATE ${this.table_name} SET trx = '${tx.transaction_id}' WHERE ${self.column_name_accounts} IN ${JSON.stringify(names).replace('[','(').replace(']',')')}`)
+					.then(x => {self.drop()})
+					.catch(e => {console.log(e)});
+						
 			}
 			else{
 				console.log(colors.red('No txid received, trying again...'));
