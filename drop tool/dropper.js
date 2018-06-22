@@ -10,7 +10,7 @@ class Drop {
 		this.script_mode = 'verify';  //drop, verify (for drop verification).
 
 		//sender details
-		this.user = {account:'kasperkasper', wif:'5Js1AdTmLo3PUPNtrEw4kKJpRaviLtmTXXAi5JHhnW1HCbJKXT6'};
+		this.user = {account:'kasperkasper', wif:'wifkey'};
 		this.user.consumables = { freenet: null, freecpu: null, freeram: null };
 		this.auth = { authorization: [ this.user.account+'@active' ] };
 		//token account and symbol and memo
@@ -28,7 +28,7 @@ class Drop {
 				1) name: trx , default value: '', varchar (80)
 				2) name: account_valid, default value: 1, tinyint (1)
 		*/
-		this.db_config = { host: "localhost", user: "kasperfish", password: "hbm2023", database: "eosdac" };
+		this.db_config = { host: "localhost", user: "kasperfish", password: "xxxxxxxxxx", database: "eosdac" };
 		this.table_name = 'eosdac_sql_master'; //the table that holds your data
 		this.column_name_token_amount = 'eosdac_tokens'; //the column name that holds the token amount that needs to be dropped. Must have correct decimals corresponding to the contract.
 		this.column_name_accounts = 'account_name'; //the column name of the accounts that need to be processed.
