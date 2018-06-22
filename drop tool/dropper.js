@@ -1,3 +1,10 @@
+/*
+Hello, use this script at your own risk. I have tested the script multiple times on the jungletestnetwork with the genesis snapshot as input data without issues. 
+We at eosDAC also dropped our tokens on the mainnet with this script. I strongly advice to do numerous test runs on the testnetwork before even attempting doing 
+a drop on the mainnet. You really should know how the script works. Anyone is free to use this script because it's made to serve the whole EOS community in 
+particular other DACs. If you need help to do a LEGIT airdrop you are free to contact me.
+Author: Kasper from eosDAC. (find me on the eosDAC telegram @kasperfish)
+*/
 const eosjs = require('eosjs');
 const mysql = require('mysql2/promise');
 const colors = require('colors/safe');
@@ -274,7 +281,6 @@ class Drop {
 		    	console.log('The script doesn\'t know this error. It may be not that bad. Contact Kasper from eosdac if you keep having problems.');
 		        this.done();
 		} 
-
 	}
 
 }//end class
