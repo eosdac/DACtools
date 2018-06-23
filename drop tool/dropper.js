@@ -7,8 +7,9 @@ Author: Kasper from eosDAC. (find me on the eosDAC telegram @kasperfish)
 */
 const eosjs = require('eosjs');
 const mysql = require('mysql2/promise');
-const colors = require('colors/safe');
 const pMap = require('p-map');
+const colors = require('colors/safe');
+
 
 
 class Drop {
@@ -44,23 +45,20 @@ class Drop {
 		this.column_name_accounts = 'account_name'; //the column name of the accounts that need to be processed.
 
 		//queries... Be careful and double check if you make changes!!!
+		//this query get called recursively until none gets selected
+		//you need to change this query to match the records/accounts you want to drop to.
 		this.drop_query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} 
 								FROM ${this.table_name} 
-								WHERE ${this.column_name_token_amount} < 400 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
-
+								WHERE ${this.column_name_token_amount} < 0 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
+		
+		//this query is used to verify the token drop. The verification happens through retrieving the on chain balance and comparing it with the value in your table.
+		//Mind that this only works if the tokens are sent in a frozen/locked state. If you don't have a token contract with lock function or don't know how to set it
+		//up... don't hesitate to contact one of our team members. We are happy to help you. This query doesn't need a change by default but it my be helpfull to verify
+		//the on chain token balance for a subset of your eos accounts.
 		this.verify_query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} 
 								FROM ${this.table_name} 
 								WHERE ${this.column_name_accounts} !='' &&  trx != '' `;
-		
-
-		
-
-		//start script
-		this._initEos();
-		this._modeSwitcher();
-	}
-
-	_initEos(){
+								
 		this.eos = eosjs({
 		    chainId: '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca', // 32 byte (64 char) hex string
 		    keyProvider: [this.user.wif], // WIF string or array of keys..
@@ -71,8 +69,11 @@ class Drop {
 		    expireInSeconds: 60,
 		    logger: {error: null}     
 		});
+
 		console.log('Connected to EOS network!');
+		this._modeSwitcher();
 	}
+
 	_initGracefullStop(bool){
 		var self = this;
 		if(bool){
