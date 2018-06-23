@@ -14,28 +14,31 @@ const pMap = require('p-map');
 class Drop {
 	constructor() {
 		//script mode
+		var self = this;
 		this.script_mode = 'drop';  //drop, verify (for drop verification).
 
 		//sender details
-		this.user = {account:'kasperkasper', wif:'xxxxxxxxxxxxx'};
+		this.user = {account:'kasperkasper', wif:'xxxxxxxxxxxxxxxxxx'};
 		this.user.consumables = { freenet: null, freecpu: null, freeram: null };
 		this.auth = { authorization: [ this.user.account+'@active' ] };
 		//token account and symbol and memo
 		this.token = {account: 'kasperkasper' , symbol: 'BEAST'};
-		this.memo ='droppppp';
+		this.memo ='yooloo';
 
 		//general performance settings
 		this.batch_size = 30; //number of accounts processed in each transaction for dropping (minus not existing ones)
 		this.rpc_speed = 10; //number of simultanous rpc calls. used for account check and retrieving balance.
 		this.pause_time = 0; //pause between each transaction in millis. zero should be fine. on localhost you might need a small pauze ie.250ms
+		this.gracefulstop = true; //recommended, it will enable the current transaction to complete before stopping the script (only for drop mode);
 
 		/************IMPORTANT****************
 		database settings and schema names
 		Add manually 2 columns to your table 
 				1) name: trx , default value: '', varchar (80)
 				2) name: account_valid, default value: 1, tinyint (1)
+		reset table: UPDATE eosdac_sql_master SET trx = '', account_valid =1
 		*/
-		this.db_config = { host: "localhost", user: "kasperfish", password: "xxxxxxxxx", database: "eosdac" };
+		this.db_config = { host: "localhost", user: "kasperfish", password: "xxxxxxxxxxx", database: "eosdac" };
 		this.table_name = 'eosdac_sql_master'; //the table that holds your data
 		this.column_name_token_amount = 'eosdac_tokens'; //the column name that holds the token amount that needs to be dropped. Must have correct decimals corresponding to the contract.
 		this.column_name_accounts = 'account_name'; //the column name of the accounts that need to be processed.
@@ -43,11 +46,14 @@ class Drop {
 		//queries... Be careful and double check if you make changes!!!
 		this.drop_query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} 
 								FROM ${this.table_name} 
-								WHERE ${this.column_name_token_amount} > 0 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
+								WHERE ${this.column_name_token_amount} < 400 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
 
 		this.verify_query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} 
 								FROM ${this.table_name} 
 								WHERE ${this.column_name_accounts} !='' &&  trx != '' `;
+		
+
+		
 
 		//start script
 		this._initEos();
@@ -67,6 +73,16 @@ class Drop {
 		});
 		console.log('Connected to EOS network!');
 	}
+	_initGracefullStop(bool){
+		var self = this;
+		if(bool){
+			process.on('SIGINT', function () {
+				console.log('exit event received');
+			  	self.gracefulstopflag = 1;
+			});		
+		}
+
+	}
 
 	_initMysql(){
 		return mysql.createConnection(this.db_config)
@@ -78,6 +94,7 @@ class Drop {
 		switch(this.script_mode) {
 		    case 'drop':
 		        console.log('Starting in drop mode.');
+		        this._initGracefullStop(this.gracefulstop);
 		        this.drop();
 		        break;
 		    case 'verify':
@@ -102,7 +119,7 @@ class Drop {
 		// let query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} FROM ${this.table_name} WHERE ${this.column_name_token_amount} > 0 && iscontract = 0 && isfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
   		const [rows, fields] = await this.pool.execute(this.drop_query);
 
-  		if(!rows.length){
+  		if(!rows.length || this.gracefulstopflag){
   			this.done();
   			return false;
   		}
@@ -138,6 +155,7 @@ class Drop {
   		//pack the transaction and push to chain
   		try{
 		 	let tx = await this.tokencontract.transaction(tr => {
+		 		// tr.nonce(1, {authorization: self.user.account})
 				verified.forEach(function(x){
 					//can be undefined when accountname was invalid
 					if(x != undefined){
