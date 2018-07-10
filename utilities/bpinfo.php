@@ -48,7 +48,7 @@ class eosBPinfo {
             $public_node = '';
             if (array_key_exists('nodes', $bp)) {
                 foreach ($bp['nodes'] as $nodeindex => $node) {
-                    if (array_key_exists('ssl_endpoint', $node) && $node['ssl_endpoint'] != '') {
+                    if ($public_node == "" && array_key_exists('ssl_endpoint', $node) && $node['ssl_endpoint'] != '') {
                         $public_node = $node['ssl_endpoint'];
                     }
                     if ($public_node == "" && array_key_exists('api_endpoint', $node) && $node['api_endpoint'] != '') {
