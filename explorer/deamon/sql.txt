@@ -1,0 +1,33 @@
+CREATE TABLE `transfers` (
+ `account_action_seq` int(20) NOT NULL,
+ `actiontype` text CHARACTER SET latin1 NOT NULL,
+ `_from` varchar(13) CHARACTER SET latin1 NOT NULL,
+ `_to` varchar(32) CHARACTER SET latin1 NOT NULL,
+ `_quantity` decimal(13,4) DEFAULT NULL,
+ `_symbol` varchar(7) CHARACTER SET latin1 NOT NULL,
+ `_memo` varchar(256) NOT NULL,
+ `txid` varchar(80) CHARACTER SET latin1 NOT NULL,
+ `block_num` bigint(25) NOT NULL,
+ `block_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ `confirmed` tinyint(1) NOT NULL,
+ PRIMARY KEY (`account_action_seq`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8
+
+CREATE TABLE `balances` (
+ `account` varchar(256) NOT NULL,
+ `balance` decimal(13,4) DEFAULT NULL,
+ PRIMARY KEY (`account`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1
+
+
+delimiter $$
+$$
+CREATE TRIGGER update_balance_table AFTER INSERT ON eosdac_explorer.transfers
+FOR EACH ROW
+  BEGIN
+  		/* TO*/
+      INSERT INTO eosdac_explorer.balances (account, balance) VALUES (new._to, new._quantity) ON DUPLICATE KEY UPDATE balance = balance + new._quantity;
+  		/* FROM*/
+      UPDATE eosdac_explorer.balances SET balance = balance - new._quantity  WHERE account = new._from;
+  END
+  $$
