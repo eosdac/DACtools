@@ -11,7 +11,7 @@ use Ozdemir\Datatables\DB\MySQL;
     $config = [ 'host'     => 'localhost',
                 'port'     => '3306',
                 'username' => 'root',
-                'password' => 'Hbm2023;',
+                'password' => 'xxxxxx',
                 'database' => 'eosdac_explorer' ];
 
     $dt = new Datatables( new MySQL($config) );

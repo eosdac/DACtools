@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$password = "Hbm2023;";
+$password = "xxxxxx";
 $db = "eosdac_explorer";
 
 //set up mysql

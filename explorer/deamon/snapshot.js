@@ -17,7 +17,7 @@ class WatchActions {
 
 		this.start_account_action_seq = 0;
 
-		this.db_config = { host: "localhost", user: "root", password: "Hbm2023;", database: "eosdac_explorer" };
+		this.db_config = { host: "localhost", user: "root", password: "xxxxxx", database: "eosdac_explorer" };
 		this.db = mysql.createConnection(this.db_config);
 
 		this.eos = eosjs({
