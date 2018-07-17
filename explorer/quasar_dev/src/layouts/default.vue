@@ -1,9 +1,9 @@
 <template>
-  <div> 
+  <div>
 
   <q-layout view="hhr LpR lff">
     <q-layout-header reveal>
-      <q-toolbar color="primary" >
+      <q-toolbar color="primary" style="height:80px;">
         <div class="absolute-center row justify-between items-center"  style="width:80%">
           <a href="./"><img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px"></a>
 
@@ -11,9 +11,9 @@
             <form @submit.prevent="handleSubmit">
               <input type="text" name="" v-model.trim="userinput" style="min-width:300px; height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
             </form>
-            
+
           </div>
-          
+
         </div>
       </q-toolbar>
     </q-layout-header>
@@ -65,12 +65,12 @@ export default {
       if(this.userinput.length >= 12){
           // window.location=`/account/${this.userinput}`
           this.$router.push({ path: `/account/${this.userinput}` })
-          this.userinput='' 
+          this.userinput=''
       }
-      
+
       // this.$router.push({ path: `/account/${this.userinput}` })
       // this.$router.replace({ path: '/'+this.userinput})
-      
+
     }
   }
 }
