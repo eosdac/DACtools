@@ -68,21 +68,17 @@
     <div class="label_in label_in_out" v-if="title == props.row._to">IN</div>
   </q-td>
 
-
   <q-td slot="body-cell-_from" slot-scope="props" :props="props">
-    <!-- <a  :href="'./account/'+props.value">{{ props.value }}</a> -->
     <router-link  v-if="title != props.value" :to="{path: '/account/'+props.value}" >{{ props.value }}</router-link>
     <span v-else>{{props.value}}</span>
   </q-td>
 
   <q-td slot="body-cell-_to" slot-scope="props" :props="props">
-    <!-- <a  :href="'./account/'+props.value">{{ props.value }}</a> -->
     <router-link v-if="title != props.value" :to="{path: '/account/'+props.value}" >{{ props.value }}</router-link>
     <span v-else>{{props.value}}</span>
   </q-td>
 
   <q-td slot="body-cell-txid" slot-scope="props" :props="props">
-    <!-- <a  :href="'./transaction/'+props.value">{{ props.value.slice(0,10)+'...' }}</a> -->
     <router-link :to="{path: '/transaction/' + props.value}" >{{ props.value.slice(0,10)+'...' }}</router-link>
     <q-tooltip style="font-size:10px">{{ props.value }}</q-tooltip>
   </q-td>
@@ -112,7 +108,6 @@
 @import '~variables'
 
 .info_box{
-  background-image:  url('~assets/email.png');
   background-color: $primary;
   background-repeat: no-repeat; 
   background-position: 8px;
@@ -217,6 +212,7 @@ export default {
         { name: '_to', label: 'To', field: '_to', align:'center' },
         { name: '_quantity', label: 'Quantity', field: '_quantity', align:'center' },
         { name: '_symbol', label: 'Symbol', field: '_symbol', align:'center' },
+        { name: '_memo', label: 'Memo', field: '_memo', align:'center' },
         { name: 'block_time', label: 'Block Time', field: 'block_time', align:'center', format: val => rf.format( new Date(moment.utc(val).format() ) ) },
         { name: 'txid', label: 'Txid', field: 'txid', align:'center'}
       ]

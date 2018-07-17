@@ -5,7 +5,9 @@
     <q-layout-header reveal>
       <q-toolbar color="primary" style="height:80px;">
         <div class="absolute-center row justify-between items-center"  style="width:80%">
-          <a href="./"><img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px"></a>
+          <router-link :to="{path: '/transfers/'}" >
+            <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
+          </router-link>
 
           <div style="display:inline-block;">
             <form @submit.prevent="handleSubmit">

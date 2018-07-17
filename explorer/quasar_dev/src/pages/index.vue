@@ -15,7 +15,7 @@
               <span class="q-subheading">USD</span>
             </div>
             <div class="col-xs-5 text-center">
-              <p style="font-size:14px;" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}}%(24h)</p>
+              <p style="font-size:14px;" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}} %(24h)</p>
               <span class="small q-mt-none">source coinmarketcap</span>
               </p>
               <p class="small absolute" style="bottom:0;right:10px;">source coinmarketcap</p>
@@ -107,29 +107,7 @@
 <style lang="stylus">
 @import '~variables'
 
-.info_box{
-  background-image:  url('~assets/email.png');
-  background-color: $primary;
-  background-repeat: no-repeat;
-  background-position: 8px;
 
-  padding-left:75px;
-  padding-top:13px;
-  border-radius:2px;
-}
-.circulating{
-  background-image:  url('~assets/icon-circulating-24x24.svg');
-}
-.member{
-  background-image:  url('~assets/icon-member-24x24.svg');
-}
-.price{
-  //background-image: url('~assets/icon-dac-price-24x24.svg');
-}
-
-.hodler{
-  background-image: url('~assets/icon-hodler-24x24.svg')
-}
 
 .big{
   color: rgba(255,255,255, 0.9);
@@ -139,12 +117,7 @@
   color: rgba(255,255,255, 0.7);
   font-size:9px;
 }
-.neg{
-  color: $negative;
-}
-.pos{
-  color: $positive;
-}
+
 </style>
 
 <script>
