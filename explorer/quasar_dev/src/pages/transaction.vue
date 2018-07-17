@@ -2,20 +2,26 @@
 <q-page >
   <div v-if="isvalidtxid">
     
-    <div class=" row bg-mydark" style="margin-top:40px; margin-bottom:15px; min-height:200px">
-      <div class="col" v-text="type"></div>
-      <div class="col" v-text="trxdata"></div>
+    <div class=" row bg-mydark items-center" style="margin-top:40px; padding:10px">
+      <div class="col " v-text="type"></div>
+      <div class="col">
+        <div v-for="(value, key) in trxdata">
+          {{ key }}: {{ value }}
+        </div>
+      </div>
       <div  class="col" v-text="blocktime">	</div>
       <div class="col" v-text="blocknumber"></div>
     </div>
     <div> 
-        <q-btn @click="toggleVisibility"   color="mypurple">
+    <br>
+        <q-btn @click="toggleVisibility" class="sm" color="mypurple">
           Raw Transaction
         </q-btn>
-        <q-slide-transition>
-          <div  v-show="visible" style="overflow:hidden">
+        <br><br>
+        <q-slide-transition >
+          <div  v-show="visible" style="overflow:hidden;">
               <q-scroll-area 
-            style="height: 400px; padding:20px; font-size:13px"
+            style="height: 330px; padding:20px; font-size:13px"
             class="bg-mydark"
             :thumb-style="{
               right: '0px',

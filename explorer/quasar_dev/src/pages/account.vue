@@ -1,31 +1,89 @@
 <template>
 <q-page>
 
-  <div class="row justify-between" style="min-height:70px;margin-top:40px;margin-bottom:20px;box-sizing: border-box;">
+<div class="overflow-hidden">
+    <div class="row q-mt-sm gutter-sm" style="margin-bottom:20px;">
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="bg-primary" style="max-height:60px;">
+          <div class="row">
+            <div class="col-xs-3">
+              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
+            </div>
+            <div class="col-xs-4 text-left">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
+                {{eosdacbalance}}</p>
+              <span class="q-subheading">EOSDAC</span>
+            </div>
+            <div class="col-xs-5 relative-position  ">
+<!--               <div style="font-size:14px;margin-top:12px; padding-right:10px" class="text-right" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}}% (24h)</div> -->
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Balance</p>
+            </div>
 
-    <div class="col-lg-2 col-sm-12  info_box price">
-      <div class="row items-center"> <div  class="col big">{{eosdacbalance}}</div> <div  class="col "></div></div>
-      <div class="row items-center"> <div class="col big" style="color:grey">EOSDAC</div> <div class="col small">Balance</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="bg-primary" style="height:60px;">
+          <div class="row fit">
+            <div class="col-xs-3 ">
+              <img src="~assets/Eosio_logo.svg" style="width:40px; margin-top:7px;margin-left:10px">
+              <!-- <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-circulating-1"></q-icon> -->
+            </div>
+            <div class="col-xs-4 text-left">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
+                {{eosbalance}}</p>
+              <span class="q-subheading">EOS</span>
+            </div>
+            <div class="col-xs-5 relative-position">
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Liquid balance</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="bg-primary" style="height:60px;">
+          <div class="row fit">
+            <div class="col-xs-3">
+              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
+            </div>
+            <div class="col-xs-4 text-left">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
+                xxxxxxxxxxx</p>
+              <span class="q-subheading">XXXXXXXX</span>
+            </div>
+            <div class="col-xs-5 relative-position">
+
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">xxxxxxxxxx</p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
+        <div class="bg-primary" style="height:60px;">
+          <div class="row fit">
+            <div class="col-xs-3">
+              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-hodler"></q-icon>
+            </div>
+            <div class="col-xs-4 text-left">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
+                xxxxxxxxx</p>
+              <span class="q-subheading">XXXXXXXX</span>
+            </div>
+            <div class="col-xs-5 relative-position">
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">xxxxxxxxxxx</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
-
-    <div class="col-lg-2 col-sm-12  info_box eos">
-      <div class="row items-center"> <div class="col big">{{eosbalance}}</div> <div class="col "></div></div>
-      <div class="row items-center"> <div class="col big" style="color:grey">EOS</div> <div class="col small">Liquid Balance</div></div>
-    </div>
-
-    <div class="col-lg-2 col-sm-12  info_box member">
-      <div class="row items-center"> <div class="col big">ssss</div> <div class="col "></div></div>
-      <div class="row items-center"> <div class="col big" style="color:grey">Members</div> <div class="col small">hgjhjgjgjgj</div></div>
-    </div>
-
-    <div class="col-lg-2  col-sm-12 info_box hodler">
-      <div class="row items-center"> <div class="col big">xxxxxxx</div> <div class="col "></div></div>
-      <div class="row items-center"> <div class="col big" style="color:grey">Hodlers</div> <div class="col small">hgjhjgjgjgj</div></div>
-    </div>
-
-  </div><!-- end row -->
-
-
+  </div>
+  <!-- end row -->
 
   <q-tabs color="brand" >
     <q-tab default @click="displayTransfers"  slot="title"   label="TRANSFERS" />
@@ -48,20 +106,7 @@
     :loading="loading"
     @request="request"
   >
-<!--   <q-td slot="body-cell-_from" slot-scope="props" :props="props">
-    <a  v-if="title != props.value" :href="'./account/'+props.value">{{ props.value }}</a>
-    <span v-else>{{props.value}}</span>
-  </q-td> -->
 
-<!--   <q-td slot="body-cell-_to" slot-scope="props" :props="props">
-    <a  v-if="title != props.value" :href="'./account/'+props.value">{{ props.value }}</a>
-    <span v-else>{{props.value}}</span>
-  </q-td> -->
-
-<!--   <q-td slot="body-cell-txid" slot-scope="props" :props="props">
-    <a  :href="'./transaction/'+props.value">{{ props.value.slice(0,10)+'...' }}</a>
-    <q-tooltip style="font-size:10px">{{ props.value }}</q-tooltip>
-  </q-td> -->
 
   <q-td slot="body-cell-test" slot-scope="props" :props="props">
     <div class="label_out label_in_out" v-if="title == props.row._from">OUT</div>
@@ -122,16 +167,7 @@
   background-image:  url('~assets/Eosio_logo.svg');
   background-size: 45px;
 }
-.member{
-  background-image:  url('~assets/icon-member-24x24.svg');
-}
-.price{
-  background-image: url('~assets/icon-dac-price-24x24.svg');
-}
 
-.hodler{
-  background-image: url('~assets/icon-hodler-24x24.svg')
-}
 
 .big{
   color: rgba(255,255,255, 0.9);
@@ -144,19 +180,16 @@
   color: rgba(255,255,255, 0.7);
   font-size:9px;
 }
-.neg{
-  color: $negative;
-}
-.pos{
-  color: $positive;
-}
+
 
 .label_in_out{
     border-radius:5px;
     display:inline-block;
     width:30px;
     text-align:center;
-    padding:1px 0px 1px 0px; 
+    padding:1px 0px 1px 0px;
+    font-size:12px;
+    color:black
 }
 .label_in{
     background: $positive
@@ -271,6 +304,17 @@ export default {
       filter: this.filter
     });
     this.getBalances()
-  }
+  },
+
+watch: {
+ '$route': function(){
+            this.title = this.$route.params.accountname
+            this.request({
+                pagination: this.serverPagination,
+                filter: this.filter
+            });
+          }
+},
+
 }
 </script>

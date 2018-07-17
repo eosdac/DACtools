@@ -10,15 +10,13 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
                 {{eosdacprice}}</p>
               <span class="q-subheading">USD</span>
             </div>
-            <div class="col-xs-5 text-center">
-              <p style="font-size:14px;" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}} %(24h)</p>
-              <span class="small q-mt-none">source coinmarketcap</span>
-              </p>
-              <p class="small absolute" style="bottom:0;right:10px;">source coinmarketcap</p>
+            <div class="col-xs-5 relative-position  ">
+              <div style="font-size:14px;margin-top:12px; padding-right:10px" class="text-right" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}}% (24h)</div>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">source coinmarketcap</p>
             </div>
 
           </div>
@@ -32,7 +30,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-circulating-1"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
                 {{circulatingcount}}</p>
               <span class="q-subheading">EOSDAC</span>
             </div>
@@ -51,14 +49,13 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
                 {{membercount}}</p>
               <span class="q-subheading">Members</span>
             </div>
             <div class="col-xs-5 relative-position">
 
               <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
-              </p>
             </div>
 
           </div>
@@ -72,16 +69,13 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-hodler"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
                 {{hodlercount}}</p>
               <span class="q-subheading">Hodlers</span>
             </div>
             <div class="col-xs-5 relative-position">
-
               <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
-              </p>
             </div>
-
           </div>
         </div>
       </div>
@@ -90,14 +84,14 @@
   </div>
   <!-- end row -->
 
-  <q-tabs color="brand" style="min-height:">
+  <q-tabs color="brand">
     <q-route-tab default slot="title" to="/transfers" label="TRANSFERS" />
     <q-route-tab slot="title" to="/hodlers" label="HODLERS" />
     <!--   <q-tab slot="title" name="tab-3" label="MEMBERS"/>
     <q-tab slot="title" name="tab-4" label="VOTES" /> -->
 
     <div style="background:#1E2128">
-      <router-view />
+      <router-view  />
     </div>
     <!-- </q-tab-pane> -->
   </q-tabs>
@@ -111,7 +105,7 @@
 
 .big{
   color: rgba(255,255,255, 0.9);
-  font-size:17px;
+  font-size:18px;
 }
 .small{
   color: rgba(255,255,255, 0.7);
@@ -126,11 +120,11 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      eosdacprice: 0.000001,
-      change24: '2%',
-      circulatingcount: 12222,
-      hodlercount: 122227,
-      membercount: 1254
+      eosdacprice: 0,
+      change24: 0,
+      circulatingcount: 0,
+      hodlercount: 0,
+      membercount: 0
 
     }
   },

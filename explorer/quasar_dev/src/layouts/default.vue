@@ -3,7 +3,7 @@
 
   <q-layout view="hhr LpR lff">
     <q-layout-header reveal>
-      <q-toolbar color="primary" style="height:80px;">
+      <q-toolbar color="primary" >
         <div class="absolute-center row justify-between items-center"  style="width:80%">
           <router-link :to="{path: '/transfers/'}" >
             <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
@@ -24,7 +24,8 @@
 
         <q-page  style="width:80%; margin:0 auto;margin-bottom:50px; box-sizing: border-box;">
             <div >
-                <router-view :key="$route.fullPath" />
+                <!-- <router-view :key="$route.fullPath" /> -->
+                <router-view  />
             </div>
         </q-page>
     </q-page-container>

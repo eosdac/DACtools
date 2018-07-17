@@ -14,9 +14,10 @@
     :loading="loading"
     @request="request"
   >
-  <q-td slot="body-cell-account" slot-scope="props" :props="props" >
-    <a  :href="'./account/'+props.value">{{ props.value }}</a>
+  <q-td slot="body-cell-account" slot-scope="props" :props="props">
+    <router-link :to="{path: '/account/' + props.value}" >{{ props.value }}</router-link>
   </q-td>
+
   <q-td slot="body-cell-balance" slot-scope="props" :props="props" :style="{width:'80%'}">
     {{ props.value }}
   </q-td>
