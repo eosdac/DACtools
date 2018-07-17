@@ -6,15 +6,15 @@
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="bg-primary" style="max-height:60px;">
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
             </div>
-            <div class="col-sm-4 text-left">
+            <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
                 {{eosdacprice}}</p>
               <span class="q-subheading">USD</span>
             </div>
-            <div class="col-sm-5 text-center">
+            <div class="col-xs-5 text-center">
               <p style="font-size:14px;" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}}%(24h)</p>
               <span class="small q-mt-none">source coinmarketcap</span>
               </p>
@@ -28,15 +28,15 @@
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="bg-primary" style="height:60px;">
           <div class="row fit">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-circulating-1"></q-icon>
             </div>
-            <div class="col-sm-4 text-left">
+            <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
                 {{circulatingcount}}</p>
               <span class="q-subheading">EOSDAC</span>
             </div>
-            <div class="col-sm-5 relative-position">
+            <div class="col-xs-5 relative-position">
               <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Circulating Supply</p>
             </div>
 
@@ -47,15 +47,15 @@
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="bg-primary" style="height:60px;">
           <div class="row fit">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
             </div>
-            <div class="col-sm-4 text-left">
+            <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
                 {{membercount}}</p>
               <span class="q-subheading">Members</span>
             </div>
-            <div class="col-sm-5 relative-position">
+            <div class="col-xs-5 relative-position">
 
               <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
               </p>
@@ -68,15 +68,15 @@
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
         <div class="bg-primary" style="height:60px;">
           <div class="row fit">
-            <div class="col-sm-3">
+            <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-hodler"></q-icon>
             </div>
-            <div class="col-sm-4 text-left">
+            <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white" style="line-height:24px;">
                 {{hodlercount}}</p>
               <span class="q-subheading">Hodlers</span>
             </div>
-            <div class="col-sm-5 relative-position">
+            <div class="col-xs-5 relative-position">
 
               <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
               </p>
