@@ -10,8 +10,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{eosdacbalance}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{eosdacbalance}}</p>
               <span class="q-subheading">EOSDAC</span>
             </div>
             <div class="col-xs-5 relative-position  ">
@@ -31,8 +30,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-eos"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{eosbalance}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{eosbalance}}</p>
               <span class="q-subheading">EOS</span>
             </div>
             <div class="col-xs-5 relative-position">
@@ -50,9 +48,8 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                xxxxxxxxxxx</p>
-              <span class="q-subheading">XXXXXXXX</span>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">xxxxxxxxxxx</p>
+              <span class="q-subheading">{{this.$test.get()}}</span>
             </div>
             <div class="col-xs-5 relative-position">
 
@@ -70,8 +67,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-voting"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                xxxxxxxxx</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">xxxxxxxxx</p>
               <span class="q-subheading">XXXXXXXX</span>
             </div>
             <div class="col-xs-5 relative-position">

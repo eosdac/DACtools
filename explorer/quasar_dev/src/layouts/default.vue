@@ -34,7 +34,7 @@
     <q-layout-footer reveal>
       <q-toolbar color="primary">
         <div class="absolute-center pagewidth">
-          <q-icon class="q-ma-sm text-mywhite" style="font-size:10em" name="icon-logo-footer-explorer"></q-icon>
+          <q-icon class="q-ma-sm text-mywhite" style="font-size:10em; font-weight:normal!important" name="icon-logo-footer-explorer"></q-icon>
           <!-- <img src="~assets/icon-footer-eosdac-explorer-140x40.svg" style="height:50px"> -->
         </div>
       </q-toolbar>
@@ -77,6 +77,12 @@ export default {
       // this.$router.replace({ path: '/'+this.userinput})
 
     }
+  },
+  mounted: function(){
+    this.$test.plus();
+    console.log(this.$test.get() )
+
+
   }
 }
 </script>

@@ -10,8 +10,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{eosdacprice}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{eosdacprice}}</p>
               <span class="q-subheading">USD</span>
             </div>
             <div class="col-xs-5 relative-position  ">
@@ -30,8 +29,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-circulating-1"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{circulatingcount}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{circulatingcount}}</p>
               <span class="q-subheading">EOSDAC</span>
             </div>
             <div class="col-xs-5 relative-position">
@@ -49,8 +47,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{membercount}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{membercount}}</p>
               <span class="q-subheading">Members</span>
             </div>
             <div class="col-xs-5 relative-position">
@@ -69,8 +66,7 @@
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-hodler"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">
-                {{hodlercount}}</p>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{hodlercount}}</p>
               <span class="q-subheading">Hodlers</span>
             </div>
             <div class="col-xs-5 relative-position">
@@ -103,14 +99,7 @@
 
 
 
-.big{
-  color: rgba(255,255,255, 0.9);
-  font-size:18px;
-}
-.small{
-  color: rgba(255,255,255, 0.7);
-  font-size:9px;
-}
+
 
 </style>
 
@@ -123,7 +112,7 @@ export default {
       change24: 0,
       circulatingcount: 0,
       hodlercount: 0,
-      membercount: 0
+      membercount: 9999999999999999
 
     }
   },
