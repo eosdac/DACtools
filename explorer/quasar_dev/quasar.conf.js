@@ -6,7 +6,8 @@ module.exports = function (ctx) {
     plugins: [
       'i18n',
       'axios',
-      'eosdac-iconfont'
+      'eosdac-iconfont',
+      'eos'
     ],
     css: [
       'app.styl'

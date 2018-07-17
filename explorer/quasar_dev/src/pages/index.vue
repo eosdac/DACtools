@@ -4,7 +4,7 @@
   <div class="overflow-hidden">
     <div class="row q-mt-sm gutter-sm" style="margin-bottom:20px;">
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="bg-primary" style="max-height:60px;">
+        <div class="bg-primary rounded" style="max-height:60px;">
           <div class="row">
             <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-dac-membership"></q-icon>
@@ -24,7 +24,7 @@
       </div>
 
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="bg-primary" style="height:60px;">
+        <div class="bg-primary rounded" style="height:60px;">
           <div class="row fit">
             <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-circulating-1"></q-icon>
@@ -43,7 +43,7 @@
       </div>
 
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="bg-primary" style="height:60px;">
+        <div class="bg-primary rounded" style="height:60px;">
           <div class="row fit">
             <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
@@ -63,7 +63,7 @@
       </div>
 
       <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12">
-        <div class="bg-primary" style="height:60px;">
+        <div class="bg-primary rounded" style="height:60px;">
           <div class="row fit">
             <div class="col-xs-3">
               <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-hodler"></q-icon>
@@ -115,7 +115,6 @@
 </style>
 
 <script>
-import axios from 'axios';
 
 export default {
   data() {
@@ -130,7 +129,7 @@ export default {
   },
   methods: {
     getPrice: function() {
-      axios.get('https://api.coinmarketcap.com/v2/ticker/2644/')
+      this.$axios.get('https://api.coinmarketcap.com/v2/ticker/2644/')
         .then(response => {
           this.change24 = response.data.data.quotes.USD.percent_change_24h;
           this.eosdacprice = response.data.data.quotes.USD.price;
@@ -141,7 +140,7 @@ export default {
     },
 
     getEosDacStats: function() {
-      axios.get('http://51.38.42.79/explorer/explorer_api.php?get=tokenstats')
+      this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?get=tokenstats')
         .then(response => {
           // console.log(response.data[0].tot_bal_db)
           this.hodlercount = response.data[0].tot_hodlers;

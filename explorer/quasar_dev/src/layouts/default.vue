@@ -4,9 +4,10 @@
   <q-layout view="hhr LpR lff">
     <q-layout-header reveal>
       <q-toolbar color="primary" >
-        <div class="absolute-center row justify-between items-center"  style="width:80%">
-          <router-link :to="{path: '/transfers/'}" >
+        <div class="absolute-center row justify-between items-center pagewidth">
+          <router-link :to="{path: '/transfers/'}" class="text-mywhite">
             <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
+            <!-- <q-icon class="q-ma-sm" style="font-size:14em" name="icon-signet-eosdac-explorer"></q-icon> -->
           </router-link>
 
           <div style="display:inline-block;">
@@ -22,7 +23,7 @@
 
     <q-page-container>
 
-        <q-page  style="width:80%; margin:0 auto;margin-bottom:50px; box-sizing: border-box;">
+        <q-page  style="margin:0 auto;margin-bottom:50px; box-sizing: border-box;" class="pagewidth">
             <div >
                 <!-- <router-view :key="$route.fullPath" /> -->
                 <router-view  />
@@ -32,8 +33,9 @@
 
     <q-layout-footer reveal>
       <q-toolbar color="primary">
-        <div class="absolute-center " style="width:80%">
-          <img src="~assets/icon-footer-eosdac-explorer-140x40.svg" style="height:50px">
+        <div class="absolute-center pagewidth">
+          <q-icon class="q-ma-sm text-mywhite" style="font-size:10em" name="icon-logo-footer-explorer"></q-icon>
+          <!-- <img src="~assets/icon-footer-eosdac-explorer-140x40.svg" style="height:50px"> -->
         </div>
       </q-toolbar>
     </q-layout-footer>

@@ -1,8 +1,8 @@
 <template>
 <q-page >
   <div v-if="isvalidtxid">
-    
-    <div class=" row bg-mydark items-center" style="margin-top:40px; padding:10px">
+    <div style="margin-top:40px;margin-bottom:5px"> Txid: {{this.$route.params.transactionid}}</div>
+    <div class=" row bg-mydark items-center" style=" padding:10px">
       <div class="col " v-text="type"></div>
       <div class="col">
         <div v-for="(value, key) in trxdata">
@@ -14,7 +14,7 @@
     </div>
     <div> 
     <br>
-        <q-btn @click="toggleVisibility" class="sm" color="mypurple">
+        <q-btn @click="toggleVisibility" size="sm" color="mypurple">
           Raw Transaction
         </q-btn>
         <br><br>
@@ -72,16 +72,7 @@
 </style>
 
 <script>
-const eosjs =  require('eosjs-api')
-const eos = eosjs({
-              chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906', 
-              httpEndpoint: 'http://147.75.78.129:8866',  //'http://147.75.78.129:8866' 'http://node2.Liquideos.com:80
-              expireInSeconds: 60,
-              logger: {
-                log:  null,
-                error: null // null to disable
-              } 
-            });
+
 const prettyHtml = require('json-pretty-html').default;
 
 export default {
@@ -100,7 +91,7 @@ export default {
   },
   methods:{
   	getTransaction: function(){
-  		eos.getTransaction(this.$route.params.transactionid).then(tx =>{
+  		this.$eos.getTransaction(this.$route.params.transactionid).then(tx =>{
   			console.log(tx)
   			if(tx.traces[0]){
   				this.isvalidtxid=true

@@ -36,7 +36,7 @@
 
 
 <script>
-import axios from 'axios';
+
 export default {
   data () {
     return {
@@ -63,7 +63,7 @@ export default {
       // we set QTable to "loading" state
       this.loading = true
 
-      axios
+      this.$axios
       .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=hodlers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}`)
       .then(({ data }) => {
         this.serverPagination = props.pagination
