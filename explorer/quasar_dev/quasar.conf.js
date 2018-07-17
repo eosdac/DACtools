@@ -5,7 +5,8 @@ module.exports = function (ctx) {
     // app plugins (/src/plugins)
     plugins: [
       'i18n',
-      'axios'
+      'axios',
+      'eosdac-iconfont'
     ],
     css: [
       'app.styl'
@@ -17,6 +18,9 @@ module.exports = function (ctx) {
       // 'mdi',
       // 'fontawesome'
     ],
+    framework: {
+      iconSet: 'eosdac-iconfont'
+    },
     supportIE: true,
     build: {
       scopeHoisting: true,
@@ -65,7 +69,8 @@ module.exports = function (ctx) {
     'QTabs',
     'QTab',
     'QTabPane',
-    'QRouteTab'
+    'QRouteTab',
+    'QCard'
       ],
       directives: [
         'Ripple',
