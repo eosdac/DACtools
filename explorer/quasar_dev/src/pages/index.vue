@@ -15,7 +15,9 @@
             </div>
             <div class="col-xs-5 relative-position  ">
               <div style="font-size:14px;margin-top:12px; padding-right:10px" class="text-right" :class="{'text-negative q-mb-none q-mt-lg': change24 < 0, 'text-positive q-mb-none q-mt-lg': change24 > 0}">{{change24}}% (24h)</div>
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">source coinmarketcap</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">
+                <a class="text-mywhite" target="_blank" href="https://coinmarketcap.com/currencies/eosdac/">source coinmarketcap</a>
+              </p>
             </div>
 
           </div>
@@ -86,7 +88,7 @@
     <!--   <q-tab slot="title" name="tab-3" label="MEMBERS"/>
     <q-tab slot="title" name="tab-4" label="VOTES" /> -->
 
-    <div style="background:#1E2128">
+    <div style="background:#1E2128;"> 
       <router-view  />
     </div>
     <!-- </q-tab-pane> -->

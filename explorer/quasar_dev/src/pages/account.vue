@@ -83,7 +83,7 @@
 
   <q-tabs color="brand" >
     <q-tab default @click="displayTransfers"  slot="title"   label="TRANSFERS" />
-    <q-tab slot="title"     label="VOTES" />
+    <!-- <q-tab slot="title"     label="VOTES" /> -->
   </q-tabs>
 
   <div class="bg-mydark">
@@ -129,11 +129,6 @@
   </q-td>
 
 
-<!-- 
-    <template slot="top-right" slot-scope="props">
-      <q-search hide-underline v-model="filter" />
-    </template> -->
-
     <template slot="top-right" slot-scope="props">
       <q-search hide-underline v-model.trim="filter"/>
       <q-btn
@@ -144,7 +139,7 @@
     </template>
 
   </q-table>
-   </div>
+  </div>
 </q-page>
 </template>
 

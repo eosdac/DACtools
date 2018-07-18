@@ -7,14 +7,21 @@
         <div class="absolute-center row justify-between items-center pagewidth">
           <router-link :to="{path: '/transfers/'}" class="text-mywhite">
             <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
-            <!-- <q-icon class="q-ma-sm" style="font-size:14em" name="icon-signet-eosdac-explorer"></q-icon> -->
           </router-link>
 
-          <div style="display:inline-block;">
+
+          <div style="display:inline-block;" >
             <form @submit.prevent="handleSubmit">
-              <input type="text" name="" v-model.trim="userinput" style="min-width:300px; height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
+              <input type="text" name="" v-model.trim="userinput" class="animate-scale" style="min-width:300px; height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
             </form>
 
+<!--   <q-search v-model="terms">
+    <q-autocomplete
+      :filter="myFilter"
+      @search="search"
+      @selected="selected"
+    />
+  </q-search> -->
           </div>
 
         </div>
@@ -24,8 +31,7 @@
     <q-page-container>
 
         <q-page  style="margin:0 auto;margin-bottom:50px; box-sizing: border-box;" class="pagewidth">
-            <div >
-                <!-- <router-view :key="$route.fullPath" /> -->
+            <div>
                 <router-view  />
             </div>
         </q-page>
@@ -53,8 +59,6 @@
 </template>
 
 <script>
-// import { openURL } from 'quasar'
-
 
 export default {
   name: 'LayoutDefault',
@@ -66,16 +70,10 @@ export default {
   methods: {
     // openURL
     handleSubmit() {
-      // this.$router.go(`account/${this.userinput}`);
       if(this.userinput.length >= 12){
-          // window.location=`/account/${this.userinput}`
           this.$router.push({ path: `/account/${this.userinput}` })
           this.userinput=''
       }
-
-      // this.$router.push({ path: `/account/${this.userinput}` })
-      // this.$router.replace({ path: '/'+this.userinput})
-
     }
   },
   mounted: function(){
