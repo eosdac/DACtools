@@ -1,8 +1,11 @@
+const axios = require ('axios');
+
 class test{
 	constructor(){
 		this.i = 0;
 	}
 	plus(){
+
 		this.i++
 	}
 	get(){

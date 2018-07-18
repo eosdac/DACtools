@@ -209,7 +209,7 @@ export default {
   methods: {
     displayTransfers (e){
         console.log('display transfer function')
-        console.log(this.$eos)
+
     },
 
     getBalances(){
@@ -223,7 +223,8 @@ export default {
     },
 
     request (props) {
-
+      console.log('propsxxxxxxxxxxxx')
+      console.log(props.pagination)
       this.loading = true
       this.$axios
       .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=accounttransfers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}&account=${this.title}`)
@@ -233,7 +234,7 @@ export default {
           table = this.$refs.table,
           rows = data.data,
           { page, rowsPerPage, sortBy, descending } = props.pagination
-          console.log(rows)
+
         if (props.filter) {
           rows = table.filterMethod(rows, props.filter)
         }

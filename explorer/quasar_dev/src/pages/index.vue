@@ -96,15 +96,6 @@
 </q-page>
 </template>
 
-<style lang="stylus">
-@import '~variables'
-
-
-
-
-
-</style>
-
 <script>
 
 export default {
@@ -114,10 +105,10 @@ export default {
       change24: 0,
       circulatingcount: 0,
       hodlercount: 0,
-      membercount: 9999999999999999
-
+      membercount: 0
     }
   },
+
   methods: {
     getPrice: function() {
       this.$axios.get('https://api.coinmarketcap.com/v2/ticker/2644/')
@@ -136,16 +127,13 @@ export default {
           // console.log(response.data[0].tot_bal_db)
           this.hodlercount = response.data[0].tot_hodlers;
           this.circulatingcount = response.data[0].tot_bal_db;
-
-
         })
         .catch(e => {
           alert(e);
         })
-
     }
-
   },
+
   created: function() {
     var self = this;
     this.getPrice();

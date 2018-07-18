@@ -12,33 +12,31 @@
       <div  class="col" v-text="blocktime">	</div>
       <div class="col" v-text="blocknumber"></div>
     </div>
-    <div> 
+
     <br>
-        <q-btn @click="toggleVisibility" size="sm" color="mypurple">
-          Raw Transaction
-        </q-btn>
-        <br><br>
-        <q-slide-transition >
-          <div  v-show="visible" style="overflow:hidden;">
-              <q-scroll-area 
-            style="height: 330px; padding:20px; font-size:13px"
-            class="bg-mydark"
-            :thumb-style="{
+
+    <q-btn @click="toggleVisibility" size="sm" color="mypurple">Raw Transaction</q-btn>
+
+    <br><br>
+
+    <q-slide-transition >
+      <div  v-show="visible" style="overflow:hidden;">
+        <q-scroll-area 
+          style="height: 330px; padding:20px; font-size:13px"
+          class="bg-mydark"
+          :delay="10000"
+          :thumb-style="{
               right: '0px',
               borderRadius: '2px',
               background:'#491289' ,
               width: '15px',
               opacity: 1
-            }"
-            :delay="10000"
-          >
-            <div v-html="rawtx" class="json-pretty bg-primary"></div>
-          </q-scroll-area>
-          </div>
-        </q-slide-transition>
-
-
-    </div>
+          }"
+        >
+          <div v-html="rawtx" class="json-pretty bg-primary"></div>
+        </q-scroll-area>
+      </div>
+    </q-slide-transition>
 
   </div>
   <div v-else> not long enough </div>
@@ -89,14 +87,15 @@ export default {
 
     }
   },
+  
   methods:{
   	getTransaction: function(){
   		this.$eos.getTransaction(this.$route.params.transactionid).then(tx =>{
-  			console.log(tx)
+  			// console.log(tx)
   			if(tx.traces[0]){
   				this.isvalidtxid=true
-  				
-  			}else{
+  			}
+        else{
   				return false
   			}
   			this.rawtx = prettyHtml(tx);
@@ -107,6 +106,7 @@ export default {
   			
   		})
   	},
+
     toggleVisibility (e) {
      
       if(e.blur){
@@ -115,9 +115,10 @@ export default {
       this.visible = !this.visible
     }
   },
+
   mounted: function(){
   	this.getTransaction();
   }
-     
+   
 }
 </script>

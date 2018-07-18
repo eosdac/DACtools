@@ -14,13 +14,13 @@
     :loading="loading"
     @request="request"
   >
-  <q-td slot="body-cell-account" slot-scope="props" :props="props">
-    <router-link :to="{path: '/account/' + props.value}" >{{ props.value }}</router-link>
-  </q-td>
+    <q-td slot="body-cell-account" slot-scope="props" :props="props">
+      <router-link :to="{path: '/account/' + props.value}" >{{ props.value }}</router-link>
+    </q-td>
 
-  <q-td slot="body-cell-balance" slot-scope="props" :props="props" :style="{width:'80%'}">
-    {{ props.value }}
-  </q-td>
+    <q-td slot="body-cell-balance" slot-scope="props" :props="props" :style="{width:'80%'}">
+      {{ props.value }}
+    </q-td>
 
     <template slot="top-right" slot-scope="props">
       <q-search hide-underline v-model.trim="filter" />
@@ -30,10 +30,9 @@
         @click="props.toggleFullscreen"
       />
     </template>
+
   </q-table>
 </template>
-
-
 
 <script>
 
@@ -60,18 +59,17 @@ export default {
 
   methods: {
     request (props) {
-      // we set QTable to "loading" state
       this.loading = true
 
       this.$axios
       .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=hodlers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}`)
       .then(({ data }) => {
+
         this.serverPagination = props.pagination
-        let
-          table = this.$refs.table,
-          rows = data.data,
-          { page, rowsPerPage, sortBy, descending } = props.pagination
-          console.log(rows)
+        let table = this.$refs.table
+        let rows = data.data
+        let { page, rowsPerPage, sortBy, descending } = props.pagination
+
         if (props.filter) {
           rows = table.filterMethod(rows, props.filter)
         }
@@ -84,15 +82,11 @@ export default {
         this.loading = false
       })
       .catch(error => {
-        // there's an error... do SOMETHING
-
-        // we tell QTable to exit the "loading" state
         this.loading = false
       })
     }
   },
   mounted () {
-    // once mounted, we need to trigger the initial server data fetch
     this.request({
       pagination: this.serverPagination,
       filter: this.filter

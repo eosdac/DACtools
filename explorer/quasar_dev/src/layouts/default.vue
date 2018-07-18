@@ -1,27 +1,18 @@
 <template>
-  <div>
-
+<div>
   <q-layout view="hhr LpR lff">
     <q-layout-header reveal>
       <q-toolbar color="primary" >
         <div class="absolute-center row justify-between items-center pagewidth">
+
           <router-link :to="{path: '/transfers/'}" class="text-mywhite">
             <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
           </router-link>
-
 
           <div style="display:inline-block;" >
             <form @submit.prevent="handleSubmit">
               <input type="text" name="" v-model.trim="userinput" class="animate-scale" style="min-width:300px; height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
             </form>
-
-<!--   <q-search v-model="terms">
-    <q-autocomplete
-      :filter="myFilter"
-      @search="search"
-      @selected="selected"
-    />
-  </q-search> -->
           </div>
 
         </div>
@@ -29,7 +20,6 @@
     </q-layout-header>
 
     <q-page-container>
-
         <q-page  style="margin:0 auto;margin-bottom:50px; box-sizing: border-box;" class="pagewidth">
             <div>
                 <router-view  />
@@ -67,6 +57,7 @@ export default {
       userinput:''
     }
   },
+
   methods: {
     // openURL
     handleSubmit() {
@@ -76,14 +67,10 @@ export default {
       }
     }
   },
+  //test for dev must be deleted in production
   mounted: function(){
     this.$test.plus();
     console.log(this.$test.get() )
-
-
   }
 }
 </script>
-
-<style>
-</style>
