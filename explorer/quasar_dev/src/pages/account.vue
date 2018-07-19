@@ -49,7 +49,7 @@
             </div>
             <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">xxxxxxxxxxx</p>
-              <span class="q-subheading">{{this.$test.get()}}</span>
+              <span class="q-subheading">xxxxx</span>
             </div>
             <div class="col-xs-5 relative-position">
 
@@ -227,7 +227,7 @@ export default {
       console.log(props.pagination)
       this.loading = true
       this.$axios
-      .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=accounttransfers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}&account=${this.title}`)
+      .get(this.$tableApi.adapt('accounttransfers',0, this.columns, props)+`&account=${this.title}`)
       .then(({ data }) => {
         this.serverPagination = props.pagination
         let
@@ -241,7 +241,7 @@ export default {
         if (sortBy) {
           rows = table.sortMethod(rows, sortBy, descending)
         }
-        this.serverPagination.rowsNumber = data.totalrows
+        this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
 
         this.serverData = rows
         this.loading = false

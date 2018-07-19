@@ -8,7 +8,7 @@ module.exports = function (ctx) {
       'axios',
       'eosdac-iconfont',
       'eos',
-      'test'
+      'tableApi'
     ],
     css: [
       'app.styl'
@@ -43,12 +43,12 @@ module.exports = function (ctx) {
     // framework: 'all' --- includes everything; for dev only!
     framework: {
       components: [
-          'QSlideTransition',
-         'QSearch',
-         'QField',
-         'QTooltip',
-         'QScrollArea',
-         'QModal',
+        'QSlideTransition',
+        'QSearch',
+        'QField',
+        'QTooltip',
+        'QScrollArea',
+        'QModal',
         'QLayout',
         'QLayoutHeader',
         'QLayoutFooter',

@@ -20,11 +20,11 @@
     </q-layout-header>
 
     <q-page-container>
-        <q-page  style="margin:0 auto;margin-bottom:50px; box-sizing: border-box;" class="pagewidth">
-            <div>
-                <router-view  />
-            </div>
-        </q-page>
+      <q-page  style="margin:0 auto;margin-bottom:50px; box-sizing: border-box;" class="pagewidth">
+        <div>
+          <router-view />
+        </div>
+      </q-page>
     </q-page-container>
 
     <q-layout-footer reveal>
@@ -35,6 +35,7 @@
         </div>
       </q-toolbar>
     </q-layout-footer>
+
     <q-btn
       v-back-to-top.animate="{offset: 500, duration: 200}"
       round
@@ -44,6 +45,7 @@
     >
       <q-icon name="keyboard_arrow_up" />
     </q-btn>
+    
   </q-layout>
 </div>
 </template>
@@ -66,11 +68,6 @@ export default {
           this.userinput=''
       }
     }
-  },
-  //test for dev must be deleted in production
-  mounted: function(){
-    this.$test.plus();
-    console.log(this.$test.get() )
   }
 }
 </script>

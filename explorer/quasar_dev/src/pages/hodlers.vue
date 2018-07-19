@@ -59,10 +59,11 @@ export default {
 
   methods: {
     request (props) {
+
       this.loading = true
 
       this.$axios
-      .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=hodlers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}`)
+      .get(this.$tableApi.adapt('hodlers',1, this.columns, props) )
       .then(({ data }) => {
 
         this.serverPagination = props.pagination
@@ -76,7 +77,7 @@ export default {
         if (sortBy) {
           rows = table.sortMethod(rows, sortBy, descending)
         }
-        this.serverPagination.rowsNumber = data.totalrows
+        this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
 
         this.serverData = rows
         this.loading = false

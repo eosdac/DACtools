@@ -58,7 +58,7 @@ export default {
       serverData: [],
       title:'Transfers',
       columns: [
-        { name: 'account_action_seq', label: 'Seq', field: 'account_action_seq', sortable: true, align:'center'},
+        { name: 'account_action_seq', label: 'Seq', field: 'account_action_seq', align:'center'},
         { name: '_from', label: 'From', field: '_from', align:'center'},
         { name: '_to', label: 'To', field: '_to', align:'center' },
         { name: '_quantity', label: 'Quantity', field: '_quantity', align:'center' },
@@ -73,7 +73,7 @@ export default {
 
       this.loading = true
       this.$axios
-      .get(`http://51.38.42.79/explorer/explorer_api_quasar.php?get=transfers&page=${props.pagination.page}&length=${props.pagination.rowsPerPage}&sortBy=${props.pagination.sortBy}&descending=${props.pagination.descending}&filter=${props.filter}`)
+      .get(this.$tableApi.adapt('transfers',0, this.columns, props) )
       .then(({ data }) => {
         this.serverPagination = props.pagination
         let
@@ -86,7 +86,7 @@ export default {
         if (sortBy) {
           rows = table.sortMethod(rows, sortBy, descending)
         }
-        this.serverPagination.rowsNumber = data.totalrows
+        this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
 
         this.serverData = rows
         this.loading = false
