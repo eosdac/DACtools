@@ -8,8 +8,8 @@ class tableApi{
 
 	adapt(get, initorder, cols, props){
 
-		console.log(JSON.stringify(cols))
-		console.log(JSON.stringify(props) ) 
+		// console.log(JSON.stringify(cols))
+		// console.log(JSON.stringify(props) ) 
 
 		//calculate start position
 		let start = (props.pagination.page-1)*props.pagination.rowsPerPage;
@@ -17,15 +17,20 @@ class tableApi{
 		let temp = `http://51.38.42.79/explorer/explorer_api2.php?get=${get}&draw=1`;
 
 		let ar = [];
+		let ignorecount = 0;
 
 		cols.forEach(function(value, index){
-			ar.push(value.field);
-			temp += `&columns[${index}][data]=${value.field}`
-			temp +=	`&columns[${index}][name]=`
-			temp +=	`&columns[${index}][searchable]=true`
-			temp +=	`&columns[${index}][orderable]=false`
-			temp +=	`&columns[${index}][search][value]=`
-			// temp +=	`&columns[${index}][search][regex]=false`
+			if(!value.ignoreapi){
+				ar.push(value.field);
+				let searchable = value.searchable ? true : false
+				temp += `&columns[${index-ignorecount}][data]=${value.field}`
+				temp +=	`&columns[${index-ignorecount}][name]=`
+				temp +=	`&columns[${index-ignorecount}][searchable]=${searchable}`
+				temp +=	`&columns[${index-ignorecount}][orderable]=false`
+				temp +=	`&columns[${index-ignorecount}][search][value]=`
+				// temp +=	`&columns[${index}][search][regex]=false`
+			}else{ignorecount++}
+
 		})
 
 		// let orderby = props.pagination.sortBy ? ar.indexOf(props.pagination.sortBy) : ''

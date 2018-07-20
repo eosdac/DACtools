@@ -1,5 +1,7 @@
 <template>
+<div>
   <q-table
+    style="background:#1E2128"
     ref="table"
     color="brand"
     dark
@@ -31,14 +33,36 @@
       />
     </template>
 
+    <template slot="top-left" slot-scope="props">
+      <div class="q-table-title" style="margin-right:20px">{{title}}</div>
+      <q-btn color="positive" dense size="xs" @click="opened = true" label="Top 100 chart" />
+    
+    </template>
   </q-table>
+      
+
+    <q-modal v-model="opened" maximized content-css="background:#2F333E;width:100%!important">
+
+       <q-btn color="brand" @click="opened = false" label="Close"/>
+       <test></test>
+
+
+    </q-modal>
+
+  
+</div>
 </template>
 
 <script>
+import Chart from 'chart.js';
+import test from '../components/hodlerchart'
+
 
 export default {
+  components:{test},
   data () {
     return {
+      opened:false,
       filter: '',
       loading: false,
       serverPagination: {
@@ -50,8 +74,8 @@ export default {
       serverData: [],
       title:'Hodlers',
       columns: [
-        { name: 'rank', label: '', field: 'rank', align: 'center'},
-        { name: 'account', label: 'Account', field: 'account', align: 'center'},
+        { name: 'rank', label: '', field: 'rank', align: 'center', ignoreapi:true},
+        { name: 'account', label: 'Account', field: 'account', align: 'center', searchable:true},
         { name: 'balance', label: 'EOSDAC', field: 'balance' , align: 'left'}
       ]
     }
@@ -85,7 +109,9 @@ export default {
       .catch(error => {
         this.loading = false
       })
-    }
+    },
+
+
   },
   mounted () {
     this.request({

@@ -195,9 +195,9 @@ export default {
       title:this.$route.params.accountname,
       columns: [
         { name: 'account_action_seq', label: 'Seq', field: 'account_action_seq', align:'center'},
-        { name: '_from', label: 'From', field: '_from', align:'center' },
-        { name: 'direction', label: '', field: '', align:'center' },
-        { name: '_to', label: 'To', field: '_to', align:'center' },
+        { name: '_from', label: 'From', field: '_from', align:'center', searchable:true },
+        { name: 'direction', label: '', field: '', align:'center', ignoreapi:true },
+        { name: '_to', label: 'To', field: '_to', align:'center', searchable:true },
         { name: '_quantity', label: 'Quantity', field: '_quantity', align:'center' },
         { name: '_symbol', label: 'Symbol', field: '_symbol', align:'center' },
         { name: '_memo', label: 'Memo', field: '_memo', align:'center' },
@@ -223,17 +223,14 @@ export default {
     },
 
     request (props) {
-      console.log('propsxxxxxxxxxxxx')
-      console.log(props.pagination)
       this.loading = true
       this.$axios
       .get(this.$tableApi.adapt('accounttransfers',0, this.columns, props)+`&account=${this.title}`)
       .then(({ data }) => {
         this.serverPagination = props.pagination
-        let
-          table = this.$refs.table,
-          rows = data.data,
-          { page, rowsPerPage, sortBy, descending } = props.pagination
+        let table = this.$refs.table
+        let rows = data.data
+        let { page, rowsPerPage, sortBy, descending } = props.pagination
 
         if (props.filter) {
           rows = table.filterMethod(rows, props.filter)
@@ -242,18 +239,15 @@ export default {
           rows = table.sortMethod(rows, sortBy, descending)
         }
         this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
-
         this.serverData = rows
         this.loading = false
       })
       .catch(error => {
-        // there's an error... do SOMETHING
-
-        // we tell QTable to exit the "loading" state
         this.loading = false
       })
     }
   },
+
   mounted () {
     // once mounted, we need to trigger the initial server data fetch
     this.request({

@@ -88,7 +88,7 @@
     <!--   <q-tab slot="title" name="tab-3" label="MEMBERS"/>
     <q-tab slot="title" name="tab-4" label="VOTES" /> -->
 
-    <div style="background:#1E2128;"> 
+    <div> <!-- <div style="background:#1E2128;">  -->
       <router-view  />
     </div>
     <!-- </q-tab-pane> -->

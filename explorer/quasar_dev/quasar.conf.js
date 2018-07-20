@@ -45,6 +45,8 @@ module.exports = function (ctx) {
       components: [
         'QSlideTransition',
         'QSearch',
+        'QSelect',
+        'QSlider',
         'QField',
         'QTooltip',
         'QScrollArea',
@@ -68,6 +70,7 @@ module.exports = function (ctx) {
         'QTr',
         'QTd',
         'QTableColumns',
+        'QWindowResizeObservable',
     'QTabs',
     'QTab',
     'QTabPane',

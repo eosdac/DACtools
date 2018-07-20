@@ -16,7 +16,8 @@ export default [
       },
 
       { path: 'account/:accountname', component: () => import('pages/account') },
-      { path: 'transaction/:transactionid', component: () => import('pages/transaction') }
+      { path: 'transaction/:transactionid', component: () => import('pages/transaction') },
+      // { path: 'test', component: () => import('pages/testpage') }
 
     ]
   },

@@ -1,6 +1,7 @@
 <template>
   <q-table
     ref="table"
+    style="background:#1E2128"
     color="brand"
     dark
     dense
@@ -59,15 +60,16 @@ export default {
       title:'Transfers',
       columns: [
         { name: 'account_action_seq', label: 'Seq', field: 'account_action_seq', align:'center'},
-        { name: '_from', label: 'From', field: '_from', align:'center'},
-        { name: '_to', label: 'To', field: '_to', align:'center' },
+        { name: '_from', label: 'From', field: '_from', align:'center', searchable:true},
+        { name: '_to', label: 'To', field: '_to', align:'center', searchable:true},
         { name: '_quantity', label: 'Quantity', field: '_quantity', align:'center' },
         { name: '_symbol', label: 'Symbol', field: '_symbol', align:'center' },
         { name: 'block_time', label: 'Block Time', field: 'block_time', align:'center', format: val => rf.format( new Date(moment.utc(val).format() ) ) },
-        { name: 'txid', label: 'Txid', field: 'txid', align:'center'}
+        { name: 'txid', label: 'Txid', field: 'txid', align:'center', searchable:true}
       ]
     }
   },
+
   methods: {
     request (props) {
 
@@ -76,10 +78,10 @@ export default {
       .get(this.$tableApi.adapt('transfers',0, this.columns, props) )
       .then(({ data }) => {
         this.serverPagination = props.pagination
-        let
-          table = this.$refs.table,
-          rows = data.data,
-          { page, rowsPerPage, sortBy, descending } = props.pagination
+
+        let table = this.$refs.table
+        let rows = data.data
+        let { page, rowsPerPage, sortBy, descending } = props.pagination
         if (props.filter) {
           rows = table.filterMethod(rows, props.filter)
         }
