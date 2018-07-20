@@ -6,12 +6,15 @@
         <div class="absolute-center row justify-between items-center pagewidth">
 
           <router-link :to="{path: '/transfers/'}" class="text-mywhite">
-            <img src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
+            <span>
+            <img id="logo" src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
+          </span>
+
           </router-link>
 
           <div style="display:inline-block;" >
             <form @submit.prevent="handleSubmit">
-              <input type="text" name="" v-model.trim="userinput" class="animate-scale" style="min-width:300px; height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
+              <input id="top_search" type="text" name="" v-model.trim="userinput" class="animate-scale" style=" height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
             </form>
           </div>
 

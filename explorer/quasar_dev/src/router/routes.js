@@ -9,7 +9,7 @@ export default [
         children: [
             { path: '', redirect : '/transfers' },
             { path: 'transfers', component: () => import('pages/transfers') },
-            { path: 'hodlers', component: () => import('pages/hodlers') },
+            { path: 'holders', component: () => import('pages/hodlers') },
             // { path: 'votes', component: () => import('pages/xxxxx') },
             // { path: 'members', component: () => import('pages/hodxxxxlers') },
         ]

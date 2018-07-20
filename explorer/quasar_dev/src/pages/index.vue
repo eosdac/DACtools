@@ -54,7 +54,7 @@
             </div>
             <div class="col-xs-5 relative-position">
 
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
             </div>
 
           </div>
@@ -69,10 +69,10 @@
             </div>
             <div class="col-xs-4 text-left">
               <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">{{hodlercount}}</p>
-              <span class="q-subheading">Hodlers</span>
+              <span class="q-subheading">Holders</span>
             </div>
             <div class="col-xs-5 relative-position">
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">hgjhjgjgjgj</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Token Holders</p>
             </div>
           </div>
         </div>
@@ -84,7 +84,7 @@
 
   <q-tabs color="brand">
     <q-route-tab default slot="title" to="/transfers" label="TRANSFERS" />
-    <q-route-tab slot="title" to="/hodlers" label="HODLERS" />
+    <q-route-tab slot="title" to="/holders" label="HOLDERS" />
     <!--   <q-tab slot="title" name="tab-3" label="MEMBERS"/>
     <q-tab slot="title" name="tab-4" label="VOTES" /> -->
 

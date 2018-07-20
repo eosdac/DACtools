@@ -45,15 +45,15 @@
         <div class="bg-primary rounded" style="height:60px;">
           <div class="row fit">
             <div class="col-xs-3">
-              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
+              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-voting"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">xxxxxxxxxxx</p>
-              <span class="q-subheading">xxxxx</span>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">0</p>
+              <span class="q-subheading">VOTES</span>
             </div>
             <div class="col-xs-5 relative-position">
 
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">xxxxxxxxxx</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
             </div>
 
           </div>
@@ -64,14 +64,14 @@
         <div class="bg-primary rounded" style="height:60px;">
           <div class="row fit">
             <div class="col-xs-3">
-              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-voting"></q-icon>
+              <q-icon class="q-ma-sm" style="font-size:45px;" name="icon-member"></q-icon>
             </div>
             <div class="col-xs-4 text-left">
-              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">xxxxxxxxx</p>
-              <span class="q-subheading">XXXXXXXX</span>
+              <p class="q-mb-none q-mt-sm q-headline text-weight-light text-white big" style="line-height:24px;">No</p>
+              <span class="q-subheading">MEMBER</span>
             </div>
             <div class="col-xs-5 relative-position">
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">xxxxxxxxxxx</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
             </div>
           </div>
         </div>

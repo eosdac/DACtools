@@ -72,7 +72,7 @@ export default {
       },
 
       serverData: [],
-      title:'Hodlers',
+      title:'Holders',
       columns: [
         { name: 'rank', label: '', field: 'rank', align: 'center', ignoreapi:true},
         { name: 'account', label: 'Account', field: 'account', align: 'center', searchable:true},
