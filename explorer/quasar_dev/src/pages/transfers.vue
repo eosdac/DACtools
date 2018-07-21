@@ -25,7 +25,6 @@
 
     <q-td slot="body-cell-txid" slot-scope="props" :props="props">
       <router-link :to="{path: '/transaction/' + props.value}" >{{ props.value.slice(0,10)+'...' }}</router-link>
-      <q-tooltip style="font-size:10px">{{ props.value }}</q-tooltip>
     </q-td>
 
     <template slot="top-right" slot-scope="props">

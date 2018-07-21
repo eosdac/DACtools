@@ -125,7 +125,6 @@
 
   <q-td slot="body-cell-txid" slot-scope="props" :props="props">
     <router-link :to="{path: '/transaction/' + props.value}" >{{ props.value.slice(0,10)+'...' }}</router-link>
-    <q-tooltip style="font-size:10px">{{ props.value }}</q-tooltip>
   </q-td>
 
 
@@ -192,7 +191,7 @@ export default {
       },
 
       serverData: [],
-      title:this.$route.params.accountname,
+      title: this.$route.params.accountname,
       columns: [
         { name: 'account_action_seq', label: 'Seq', field: 'account_action_seq', align:'center'},
         { name: '_from', label: 'From', field: '_from', align:'center', searchable:true },

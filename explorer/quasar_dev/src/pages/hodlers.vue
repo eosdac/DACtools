@@ -43,9 +43,8 @@
 
     <q-modal v-model="opened" maximized content-css="background:#2F333E;width:100%!important">
 
-       <q-btn color="brand" @click="opened = false" label="Close"/>
+       <q-btn color="brand" round @click="opened = false"icon="icon-close" style="position:absolute;z-index:99999;top:10px;right:10px"/>
        <test></test>
-
 
     </q-modal>
 

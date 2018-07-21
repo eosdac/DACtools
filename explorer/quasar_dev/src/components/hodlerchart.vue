@@ -47,7 +47,7 @@ export default {
       // Array will be automatically processed with visualization.arrayToDataTable function
       chartData: [],
       chartOptions: {
-        title: `Top 30`,
+        title: `Top 30 Holders`,
         width:'900',
         height:'500',
         titleTextStyle: {
@@ -111,7 +111,7 @@ export default {
 
     inputChanged(val){
       this.chartData = this.unfiltereddata.slice(0, val+1)
-      this.chartOptions.title = `TOP ${val}`
+      this.chartOptions.title = `Top ${val} Holders`
     },
     onResize (size) {
       console.log(size)
