@@ -1,6 +1,6 @@
-Script for constructing token balances based on transfer actions
+#Script for constructing token balances based on transfer actions
 
-this script only works on nodes that have the history plugin with the correct filter.
+this script only works on nodes that have the history plugin enabled with the correct filter.
 
 **1. Install modules**
 ```
