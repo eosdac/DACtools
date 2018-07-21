@@ -44,7 +44,7 @@ class tableApi{
 		temp += `&search[value]=${props.filter}`
 		// temp += `&search[regex]=false`
 
-		console.log(temp)
+		// console.log(temp)
 		return temp 
 	}
 

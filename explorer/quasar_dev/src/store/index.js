@@ -1,13 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import example from './module-example'
+import tables from './tables';
+// import api from './api'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    example
+    tables
   }
 })
 

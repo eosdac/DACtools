@@ -71,6 +71,9 @@ export default {
           this.userinput=''
       }
     }
+  },
+  mounted :function(){
+
   }
 }
 </script>

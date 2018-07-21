@@ -21,16 +21,11 @@
       :max="slidermax"
       :step="5"
       @input="inputChanged"
-      @ready="onChartReady"
     />
   </div>
   </div>
 </template>
-<style>
-  
 
-
-</style>
 <script>
 import { GChart } from "vue-google-charts";
 export default {
@@ -38,13 +33,12 @@ export default {
   components: {
     GChart
   },
+
   data() {
     return {
-
-      slidervalue:30,
+      slidervalue:30, //initial value
       slidermax:100,
       unfiltereddata:[],
-      // Array will be automatically processed with visualization.arrayToDataTable function
       chartData: [],
       chartOptions: {
         title: `Top 30 Holders`,
@@ -56,12 +50,9 @@ export default {
         is3D:true,
         pieHole: 0.4,
 
-
-
         backgroundColor: {
           fill: '#1E2128',
           fillOpacity: 1,
-
         },
         // chartArea:{left:0,top:0,width:'100%',height:'75%'},
         legend: {
@@ -70,7 +61,7 @@ export default {
           maxLines:1
         },
         tooltip:{
-          isHtml:true
+          // isHtml:true
         }
       },
 
@@ -117,12 +108,6 @@ export default {
       console.log(size)
       this.chartOptions.width= size.width
 
-    },
-    onChartReady (chart, google) {
-      console.log('ready')
-      // const query = new google.visualization.Query('https://url-to-spreadsheet...')
-
-        // chart.draw()
     }
     
 

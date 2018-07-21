@@ -186,7 +186,7 @@ export default {
       loading: false,
       serverPagination: {
         page: 1,
-        rowsPerPage: 7,
+        rowsPerPage: this.$store.state.tables.rowsPerPage,
         rowsNumber: 10 // specifying this determines pagination is server-side
       },
 
@@ -240,6 +240,7 @@ export default {
         this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
         this.serverData = rows
         this.loading = false
+        this.$store.commit('tables/setRowsPerPage', props.pagination.rowsPerPage);
       })
       .catch(error => {
         this.loading = false
