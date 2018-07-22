@@ -1,3 +1,3 @@
 export default {
-  rowsPerPage : 10
+  rowsPerPage : 7
 }

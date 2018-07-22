@@ -9,13 +9,11 @@
             <span>
             <img id="logo" src="~assets/icon-eosdac-explorer-235x48.svg" style="height:40px">
           </span>
-
           </router-link>
 
-          <div style="display:inline-block;" >
-            <form @submit.prevent="handleSubmit">
-              <input id="top_search" type="text" name="" v-model.trim="userinput" class="animate-scale" style=" height:40px;border:none;border-radius:2px;padding-left:10px" placeholder="Account">
-            </form>
+          
+          <div id="top_search" style="display:inline-block;" >
+            <mysearch></mysearch>
           </div>
 
         </div>
@@ -54,9 +52,12 @@
 </template>
 
 <script>
-
+import mysearch from '../components/search'
 export default {
   name: 'LayoutDefault',
+  components:{
+    mysearch
+  },
   data () {
     return {
       userinput:''
@@ -64,13 +65,7 @@ export default {
   },
 
   methods: {
-    // openURL
-    handleSubmit() {
-      if(this.userinput.length >= 12){
-          this.$router.push({ path: `/account/${this.userinput}` })
-          this.userinput=''
-      }
-    }
+
   },
   mounted :function(){
 
