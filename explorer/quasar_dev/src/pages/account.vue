@@ -53,7 +53,7 @@
             </div>
             <div class="col-xs-5 relative-position">
 
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Coming Soon</p>
             </div>
 
           </div>
@@ -71,7 +71,7 @@
               <span class="q-subheading">MEMBER</span>
             </div>
             <div class="col-xs-5 relative-position">
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Coming Soon</p>
             </div>
           </div>
         </div>
@@ -215,11 +215,15 @@ export default {
     getBalances(){
       this.$eos.getCurrencyBalance({account: this.title, code: "eosdactokens", symbol: "EOSDAC"}).then(x=>{
           this.eosdacbalance = x[0].slice(0,-7)
-      }).catch(e => { });
+      }).catch(e => { 
+          this.$q.notify({message:'Error getting EOSDAC balance from node.', color:'negative'});
+      });
 
       this.$eos.getCurrencyBalance({account: this.title, code: "eosio.token", symbol: "EOS"}).then(x=>{
           this.eosbalance = x[0].slice(0,-4)
-      }).catch(e => { });
+      }).catch(e => { 
+          this.$q.notify({message:'Error getting EOS balance from node.', color:'negative'});
+      });
     },
 
     request (props) {
@@ -244,7 +248,8 @@ export default {
         this.$store.commit('app/setRowsPerPage', props.pagination.rowsPerPage);
       })
       .catch(error => {
-        this.loading = false
+        this.loading = false;
+        this.$q.notify({message:'Error getting table data from server.', color:'negative'});
       })
     }
   },

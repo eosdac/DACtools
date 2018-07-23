@@ -54,7 +54,7 @@
             </div>
             <div class="col-xs-5 relative-position">
 
-              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Comming Soon</p>
+              <p class="small q-mb-xs absolute" style="bottom:0;right:10px;">Coming Soon</p>
             </div>
 
           </div>
@@ -121,9 +121,10 @@ export default {
         .then(response => {
           this.change24 = response.data.data.quotes.USD.percent_change_24h;
           this.eosdacprice = response.data.data.quotes.USD.price;
+
         })
         .catch(e => {
-          this.eosdacprice = 'error';
+          this.$q.notify({message:'Error during coinmarketcap request.', color:'negative'});
         })
     },
 
@@ -136,6 +137,7 @@ export default {
         })
         .catch(e => {
           console.log(e);
+          this.$q.notify({message:'Error retrieving tokens statistics.', color:'negative'});
         })
     }
   },

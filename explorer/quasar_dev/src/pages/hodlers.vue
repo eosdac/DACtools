@@ -89,26 +89,27 @@ export default {
       .get(this.$tableApi.adapt('hodlers',1, this.columns, props) )
       .then(({ data }) => {
 
-        this.serverPagination = props.pagination
-        let table = this.$refs.table
-        let rows = data.data
-        let { page, rowsPerPage, sortBy, descending } = props.pagination
+        this.serverPagination = props.pagination;
+        let table = this.$refs.table;
+        let rows = data.data;
+        let { page, rowsPerPage, sortBy, descending } = props.pagination;
 
         if (props.filter) {
-          rows = table.filterMethod(rows, props.filter)
+          rows = table.filterMethod(rows, props.filter);
         }
         if (sortBy) {
-          rows = table.sortMethod(rows, sortBy, descending)
+          rows = table.sortMethod(rows, sortBy, descending);
         }
-        this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
+        this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered;
 
-        this.serverData = rows
-        this.loading = false
+        this.serverData = rows;
+        this.loading = false;
 
         this.$store.commit('app/setRowsPerPage', props.pagination.rowsPerPage);
       })
       .catch(error => {
-        this.loading = false
+        this.loading = false;
+        this.$q.notify({message:'Error getting table data from server.', color:'negative'});
       })
     },
 

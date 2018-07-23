@@ -105,6 +105,9 @@ export default {
   			this.trxdata = tx.traces[0].act.data
   			
   		})
+      .catch(e =>{
+        this.$q.notify({message:'Error getting TX from node.', color:'negative'});
+      });
   	},
 
     toggleVisibility (e) {
