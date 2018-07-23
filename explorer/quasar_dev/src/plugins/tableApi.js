@@ -1,6 +1,6 @@
 //this class contains a function to construct/adapt the Quasar datatable api calls to work with the famous jquery datatables api. I opted to not write our own
 //api implementation because there are multiple apis available in many different languages for the jquery datatable plugin. Using an adapter will give more flexibility.
-
+import config from '../statics/config/explorer_config.json';
 class tableApi{
 	constructor(){
 		this.i = 0;
@@ -14,7 +14,7 @@ class tableApi{
 		//calculate start position
 		let start = (props.pagination.page-1)*props.pagination.rowsPerPage;
 		
-		let temp = `http://51.38.42.79/explorer/explorer_api2.php?get=${get}&draw=1`;
+		let temp = `${config.settings.url}explorer_api2.php?get=${get}&draw=1`;
 
 		let ar = [];
 		let ignorecount = 0;

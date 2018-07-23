@@ -186,7 +186,7 @@ export default {
       loading: false,
       serverPagination: {
         page: 1,
-        rowsPerPage: this.$store.state.tables.rowsPerPage,
+        rowsPerPage: this.$store.state.app.rowsPerPage,
         rowsNumber: 10 // specifying this determines pagination is server-side
       },
 
@@ -205,6 +205,7 @@ export default {
       ]
     }
   },
+  
   methods: {
     displayTransfers (e){
         console.log('display transfer function')
@@ -240,7 +241,7 @@ export default {
         this.serverPagination.rowsNumber = data.recordsTotal == data.recordsFiltered ? data.recordsTotal : data.recordsFiltered
         this.serverData = rows
         this.loading = false
-        this.$store.commit('tables/setRowsPerPage', props.pagination.rowsPerPage);
+        this.$store.commit('app/setRowsPerPage', props.pagination.rowsPerPage);
       })
       .catch(error => {
         this.loading = false

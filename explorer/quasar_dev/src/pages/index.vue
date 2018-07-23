@@ -88,18 +88,24 @@
     <!--   <q-tab slot="title" name="tab-3" label="MEMBERS"/>
     <q-tab slot="title" name="tab-4" label="VOTES" /> -->
 
-    <div> <!-- <div style="background:#1E2128;">  -->
+    <div style="min-height:500px"> <!-- <div style="background:#1E2128;">  -->
       <router-view  />
     </div>
     <!-- </q-tab-pane> -->
   </q-tabs>
+  <br>
+  <tokenactivity></tokenactivity>
 </q-page>
 </template>
 
 <script>
-
+import tokenactivity from '../components/tokenactivitychart'
 export default {
+    components :{
+        tokenactivity
+    },
   data() {
+
     return {
       eosdacprice: 0,
       change24: 0,
@@ -129,7 +135,7 @@ export default {
           this.circulatingcount = response.data[0].tot_bal_db;
         })
         .catch(e => {
-          alert(e);
+          console.log(e);
         })
     }
   },

@@ -1,13 +1,6 @@
 <template>
 
-<q-search color="brand" dark v-model="terms" placeholder="Type 'fre'">
-  <q-autocomplete
-    dark
-    @search="search"
-    :min-characters="1"
-    @selected="selected"
-  />
-</q-search>
+<display21bps></display21bps>
 
 </template>
 
@@ -17,31 +10,25 @@
 
 <script>
 
-
+import display21bps from '../components/display21bps'
 export default {
+  components:{
+    display21bps
+  },
   data () {
     return {
-      test:10,
-      terms:''
+
 
     }
   },
   
   methods:{
-    search(terms, done){
-      this.$axios.get(`http://51.38.42.79/explorer/explorer_api.php?search=${terms}`).then(response=>{
-          
-          done(response.data)
-      })
-      .catch(e=>{done([])})
-    },
-    selected(){}
+ 
 
   },
 
   mounted: function(){
-    console.log(JSON.stringify(this.$store.state) )
-  }
+   }
    
 }
 </script>
