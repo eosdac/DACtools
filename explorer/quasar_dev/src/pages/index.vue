@@ -123,7 +123,6 @@ export default {
         .then(response => {
           this.change24 = response.data.data.quotes.USD.percent_change_24h;
           this.eosdacprice = response.data.data.quotes.USD.price;
-
         })
         .catch(e => {
           this.$q.notify({message:'Error during coinmarketcap request.', color:'negative'});
@@ -139,7 +138,6 @@ export default {
           this.circulatingcount = response.data[0].tot_bal_db;
         })
         .catch(e => {
-          console.log(e);
           this.$q.notify({message:'Error retrieving tokens statistics.', color:'negative'});
         })
     }

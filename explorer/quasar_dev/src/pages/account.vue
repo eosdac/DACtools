@@ -214,13 +214,23 @@ export default {
 
     getBalances(){
       this.$eos.getCurrencyBalance({account: this.title, code: "eosdactokens", symbol: "EOSDAC"}).then(x=>{
-          this.eosdacbalance = x[0].slice(0,-7)
+          if(x.length !=0){
+            this.eosdacbalance = x[0].slice(0,-7);
+          }
+          else{
+            this.eosdacbalance = 0;
+          }
       }).catch(e => { 
           this.$q.notify({message:'Error getting EOSDAC balance from node.', color:'negative'});
       });
 
       this.$eos.getCurrencyBalance({account: this.title, code: "eosio.token", symbol: "EOS"}).then(x=>{
-          this.eosbalance = x[0].slice(0,-4)
+        if(x.length !=0){
+          this.eosbalance = x[0].slice(0,-4);
+        }
+        else{
+          this.eosbalance = 0;
+        }
       }).catch(e => { 
           this.$q.notify({message:'Error getting EOS balance from node.', color:'negative'});
       });
