@@ -39,7 +39,14 @@
     </q-slide-transition>
 
   </div>
-  <div v-else> not long enough </div>
+  <div v-else style="border:1px solid #491289;background-color:#1E2128;margin-top:40px;text-align:center;padding:20px" class="rounded">
+    <div style="margin-bottom:20px">This transaction id is not related to eosDAC</div>
+    <q-btn
+      color="brand"
+      @click="$router.push('/transfers')"
+      label="Go Home"
+    />
+  </div>
 </q-page >
 </template>
 

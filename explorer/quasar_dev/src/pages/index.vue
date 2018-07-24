@@ -111,12 +111,14 @@ export default {
       change24: 0,
       circulatingcount: 0,
       hodlercount: 0,
-      membercount: 0
+      membercount: 0,
+      isfocus: true
     }
   },
 
   methods: {
     getPrice: function() {
+      if(!this.isfocus){return false}
       this.$axios.get('https://api.coinmarketcap.com/v2/ticker/2644/')
         .then(response => {
           this.change24 = response.data.data.quotes.USD.percent_change_24h;
@@ -129,6 +131,7 @@ export default {
     },
 
     getEosDacStats: function() {
+      if(!this.isfocus){return false}
       this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?get=tokenstats')
         .then(response => {
           // console.log(response.data[0].tot_bal_db)
@@ -146,10 +149,18 @@ export default {
     var self = this;
     this.getPrice();
     this.getEosDacStats();
+
     setInterval(function() {
-      self.getPrice()
+      self.getPrice();
+      self.getEosDacStats();
     }, 10000);
     // this.getEosDacStats();
+  },
+
+  watch: {
+    '$q.appVisible' (val) {
+      this.isfocus = val;
+    }
   }
 
 }

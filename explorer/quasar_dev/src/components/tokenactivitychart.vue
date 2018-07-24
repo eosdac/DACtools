@@ -47,7 +47,7 @@ export default {
 
         },
         hAxis:{
-          title: '',
+          title: 'UTC',
           textStyle: { color: 'grey' },
           titleTextStyle: {color: 'grey'}
         },
@@ -93,30 +93,29 @@ export default {
     getChartData(){
       this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?chart=tokenactivity')
       .then(response =>{
-        let data = response.data
-        console.log(data)
+        let data = response.data;
+        // console.log(data);
 
-        let values = data.map(v => [v.date, (v.totalCount*1)] )
-        console.log(values)
+        let values = data.map(v => [v.date, (v.totalCount*1)] );
+        // console.log(values);
 
-        values.unshift(["date", "transfers"])
-        this.chartData = values
+        values.unshift(["date", "transfers"]);
+        this.chartData = values;
 
       })
-      .catch(e => {})
+      .catch(e => {
+        this.$q.notify({message:'Error getting chart data from server.', color:'negative'});
+      })
     },
 
     onResize (size) {
-      console.log(size)
+      // console.log(size)
       // this.chartOptions.width= (size.width*80/100)-14
-
-let w = document.getElementById("chartlistener").offsetWidth
-           this.chartOptions.width=w;
-
-
+      let el = document.getElementById("chartlistener");
+      if(el){
+        this.chartOptions.width=el.offsetWidth;
+      }
     }
-    
-
   },
   mounted : function(){
       this.getChartData()
