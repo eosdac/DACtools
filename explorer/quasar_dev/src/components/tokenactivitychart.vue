@@ -1,15 +1,39 @@
 <template>
-  <div id="chartlistener">
-    <div class="bg-mypurple row " style="color:white;height:60px;line-height:60px;padding-left:35px" >EOSDAC TOKEN ACTIVITY</div>
+  <div id="chartlistener" style="position:relative" :urlprop.sync="urlprop">
+    <div class="bg-mypurple row " style="color:white;height:60px;line-height:60px;padding-left:35px" >
+      EOSDAC TOKEN ACTIVITY
+    </div>
     <q-window-resize-observable @resize="onResize" />
     <GChart 
-      type="LineChart"
+      :settings="{packages: ['corechart', 'bar']}"
+      :type="chartType"
       :data="chartData"
       :options="chartOptions"
 
       :events="chartEvents"
       ref="gChart"
     />
+<q-fab
+  color="primary"
+  icon="keyboard_arrow_down"
+  direction="down"
+  class="absolute"
+  style="right: 18px; top: 78px"
+>
+  <q-fab-action
+    color="positive"
+    @click="changeChartType('LineChart')"
+    icon="show_chart"
+  />
+
+  <q-fab-action
+    color="positive"
+    @click="changeChartType('ColumnChart')"
+    icon="bar_chart"
+  />
+
+
+</q-fab>
 
   </div>
 </template>
@@ -21,10 +45,13 @@ export default {
   components: {
     GChart
   },
-
+  props :{
+    urlprop :'',
+  },
   data() {
     return {
       chartData: [],
+      chartType: 'LineChart',
       chartOptions: {
         title: `Token activity`,
         width:'100%',
@@ -91,7 +118,7 @@ export default {
 
   methods:{
     getChartData(){
-      this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?chart=tokenactivity')
+      this.$axios.get(this.urlprop)
       .then(response =>{
         let data = response.data;
         // console.log(data);
@@ -107,6 +134,9 @@ export default {
         this.$q.notify({message:'Error getting chart data from server.', color:'negative'});
       })
     },
+    changeChartType(type){
+        this.chartType = type;
+    },
 
     onResize (size) {
       // console.log(size)
@@ -120,6 +150,12 @@ export default {
   mounted : function(){
       this.getChartData()
 
-  }
+  },
+  watch: {
+    urlprop: function () {
+      this.getChartData()
+      
+    }
+  },
 };
 </script>

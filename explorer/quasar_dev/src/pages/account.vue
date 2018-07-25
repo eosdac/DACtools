@@ -139,6 +139,9 @@
 
   </q-table>
   </div>
+  <br>
+  <!-- <tokenactivity :urlprop="'http://51.38.42.79/explorer/explorer_api.php?chart=tokenactivity&account='+title"></tokenactivity> -->
+  
 </q-page>
 </template>
 
@@ -169,6 +172,7 @@
 
 
 <script>
+import tokenactivity from '../components/tokenactivitychart'
 const moment = require('moment');
 
 var IntlRelativeFormat = require('intl-relativeformat');
@@ -178,6 +182,9 @@ if (!global.Intl) {
 var rf = new IntlRelativeFormat('en');
 
 export default {
+  components:{
+    tokenactivity
+  },
   data () {
     return {
       eosdacbalance:0,

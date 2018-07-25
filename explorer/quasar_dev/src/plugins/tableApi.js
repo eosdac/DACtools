@@ -14,7 +14,7 @@ class tableApi{
 		//calculate start position
 		let start = (props.pagination.page-1)*props.pagination.rowsPerPage;
 		
-		let temp = `${config.settings.url}explorer_api2.php?get=${get}&draw=1`;
+		let temp = `${config.settings.table_api_url}?get=${get}&draw=1`;
 
 		let ar = [];
 		let ignorecount = 0;

@@ -27,7 +27,8 @@ export default {
   
   methods:{
     search(terms, done){
-      this.$axios.get(`http://51.38.42.79/explorer/explorer_api.php?search=${terms.trim()}`).then(response=>{
+      console.log(this.$store.app)
+      this.$axios.get(`${this.$store.state.app.explorer_config.settings.base_api_url}?search=${terms.trim()}`).then(response=>{
 
           done(response.data);
       })

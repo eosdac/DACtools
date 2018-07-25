@@ -94,7 +94,7 @@
     <!-- </q-tab-pane> -->
   </q-tabs>
   <br>
-  <tokenactivity></tokenactivity>
+  <tokenactivity :urlprop="`${this.$store.state.app.explorer_config.settings.base_api_url}?chart=tokenactivity`"></tokenactivity>
 </q-page>
 </template>
 
@@ -119,7 +119,7 @@ export default {
   methods: {
     getPrice: function() {
       if(!this.isfocus){return false}
-      this.$axios.get('https://api.coinmarketcap.com/v2/ticker/2644/')
+      this.$axios.get(`${this.$store.state.app.explorer_config.settings.cmc_token_ticker_url}`)
         .then(response => {
           this.change24 = response.data.data.quotes.USD.percent_change_24h;
           this.eosdacprice = response.data.data.quotes.USD.price;
@@ -131,7 +131,7 @@ export default {
 
     getEosDacStats: function() {
       if(!this.isfocus){return false}
-      this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?get=tokenstats')
+      this.$axios.get(`${this.$store.state.app.explorer_config.settings.base_api_url}?get=tokenstats`)
         .then(response => {
           // console.log(response.data[0].tot_bal_db)
           this.hodlercount = response.data[0].tot_hodlers;

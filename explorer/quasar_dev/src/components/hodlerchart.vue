@@ -86,7 +86,7 @@ export default {
 
   methods:{
     getChartData(){
-      this.$axios.get('http://51.38.42.79/explorer/explorer_api.php?chart=topholders')
+      this.$axios.get(`${this.$store.state.app.explorer_config.settings.base_api_url}?chart=topholders`)
       .then(response =>{
         let data = response.data
         this.slidermax = data.length

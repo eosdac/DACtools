@@ -73,11 +73,13 @@ module.exports = function (ctx) {
         'QTd',
         'QTableColumns',
         'QWindowResizeObservable',
-    'QTabs',
-    'QTab',
-    'QTabPane',
-    'QRouteTab',
-    'QCard'
+        'QTabs',
+        'QTab',
+        'QTabPane',
+        'QRouteTab',
+        'QCard',
+        'QFab',
+        'QFabAction'
       ],
       directives: [
         'Ripple',
