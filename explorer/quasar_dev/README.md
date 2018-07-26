@@ -32,12 +32,13 @@ quasar dev
 
 **Deployment for production**
 
-**1. Run dev server with material theme**
+**1. Build project for production**
 ```
 quasar build
 ```
 **2. Copy content of dist/spa-mat folder to your webserver**
 **3. Add .htaccess file to the root folder **
+
 because this app is a single page application we need to tell the webserver to redirect urls pointing to a non existing file to the index.html file.
 ```
 RewriteEngine On
