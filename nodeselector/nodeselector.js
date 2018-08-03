@@ -26,15 +26,18 @@ class NodeSelector {
 				let flag = true;
 				let winners = [];
 				while(flag){
-					let winner = await self._start_race();
-					if(winner.ms != 'error'){
-						flag = false;
-						resolve(winner);//valid winner
-					}
-					else{
-						//node errored so exclude from next race
-						self.nodelist = self.nodelist.filter((node) => {return node != winner.node;} );
-					}
+					try{
+						let winner = await self._start_race();
+						if(winner.ms != 'error'){
+							flag = false;
+							resolve(winner);//valid winner
+						}
+						else{
+							//node errored so exclude from next race
+							self.nodelist = self.nodelist.filter((node) => {return node != winner.node;} );
+						}
+					}catch(e){};
+
 				}
 			})
 
