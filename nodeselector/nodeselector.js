@@ -36,12 +36,9 @@ class NodeSelector {
 							//node errored so exclude from next race
 							self.nodelist = self.nodelist.filter((node) => {return node != winner.node;} );
 						}
-					}catch(e){};
-
+					}catch(e){console.log(e)};
 				}
 			})
-
-			
 		}
 
 		get_nodes(config = {https_only:false} ){
@@ -110,8 +107,7 @@ class NodeSelector {
 				});
 			});
 		}
-
-}
+}//end class
 
 module.exports = {
     NodeSelector
