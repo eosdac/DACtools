@@ -3,6 +3,7 @@
 
 Clone repo and install with npm in root folder
 ```
+cd ./nodeselector
 npm install
 ```
 Run test script
