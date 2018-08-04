@@ -24,7 +24,6 @@ class NodeSelector {
 
 			return new Promise(async function(resolve, reject){
 				let flag = true;
-				let winners = [];
 				while(flag){
 					try{
 						let winner = await self._start_race();
