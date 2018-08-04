@@ -1,4 +1,4 @@
-<h2>Select fastest node</h2>
+<h2>Select fastest responding bp node</h2>
 <p>This script will select the fastest responding eos node from the 21 active blockproducers. It can also give you a list of all 21 BP-nodes filtered by https (option).</p>
 <p>
 It will first get a the node urls from the 21 block producers through our bp.json api https://eosdac.io/topnodes.json. It will then start a request race, the fastest responding node that supports https will get resolved immediatly. 
