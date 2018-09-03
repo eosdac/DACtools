@@ -85,7 +85,7 @@ class members{
         console.log(colors.yellow(`There are ${real_members.length} registrations with a combined balance of ${total/10000} EOSDAC`) );
         console.log(colors.red(`From these registrations ${zero} accounts have no EOSDAC`));
         console.log(colors.yellow(`This means that ${( (total/10000)/this.supply*100).toFixed(2)}% of all tokens (${this.supply}) are registered`) );
-        console.log(colors.yellow(`by ${(real_members.length/stats.tot_hodlers*100).toFixed(2)}% of all tokenholders (${stats.tot_hodlers})`) );
+        console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all tokenholders (${stats.tot_hodlers})`) );
 
         if(this.startblock && this.endblock){
             console.log(colors.grey(`\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
