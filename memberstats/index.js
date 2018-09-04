@@ -61,8 +61,6 @@ class members{
 
         let stats = await this.getTokenStats();
 
-        
-
         console.log(colors.blue('Retrieving all member balances! \n') );
         const mapper = mem => this.getBalance(mem.sender).then(res => {return res }).catch(e => {console.log('MAPPER: '+e) });
         let result = await pMap(real_members, mapper, {concurrency: 20 }).then(result => { return result });
@@ -88,14 +86,13 @@ class members{
         console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all tokenholders (${stats.tot_hodlers})`) );
 
         if(this.startblock && this.endblock){
-            console.log(colors.grey(`\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
+            console.log(colors.italic(`\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
             let difblock = this.endblock.head_block_num - this.startblock.head_block_num;
-            console.log(colors.grey(`There is a window of ${difblock} (approx ${difblock/2} seconds) blocks in which actions could have happend that are not taken in to account`))
+            console.log(colors.italic(`There is a window of ${difblock} (approx ${difblock/2} seconds) blocks in which actions could have happend that are not taken in to account`))
         }
 
-        console.log('\n\n\n')
-
-      }
+        console.log('\n\n')
+    }
 
     getMembers(lb=''){
         return this.eos.getTableRows({
@@ -144,6 +141,7 @@ class members{
             });
         });
     }
+    
     getBlockNumber(){
         return this.eos.getInfo({}).then(res => res).catch(e => {console.log(e); return false});
     }
