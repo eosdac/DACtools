@@ -36,7 +36,7 @@ class members{
         let temp = [];
         this.startblock = await this.getBlockNumber();
 
-        console.log(colors.blue('Getting All Members!! \n') );
+        console.log(colors.yellow('Getting All Members!! \n') );
         while(lb !== null){
           let c = await this.getMembers(lb);
           if(c){
@@ -61,7 +61,7 @@ class members{
 
         let stats = await this.getTokenStats();
 
-        console.log(colors.blue('Retrieving all member balances! \n') );
+        console.log(colors.yellow('Retrieving all member balances! \n') );
         const mapper = mem => this.getBalance(mem.sender).then(res => {return res }).catch(e => {console.log('MAPPER: '+e) });
         let result = await pMap(real_members, mapper, {concurrency: 20 }).then(result => { return result });
         this.endblock = await this.getBlockNumber();
@@ -83,7 +83,7 @@ class members{
         console.log(colors.yellow(`There are ${real_members.length} registrations with a combined balance of ${total/10000} EOSDAC`) );
         console.log(colors.red(`From these registrations ${zero} accounts have no EOSDAC`));
         console.log(colors.yellow(`This means that ${( (total/10000)/this.supply*100).toFixed(2)}% of all tokens (${this.supply}) are registered`) );
-        console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all tokenholders (${stats.tot_hodlers})`) );
+        console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all accounts that hold EOSDAC (${stats.tot_hodlers})`) );
 
         if(this.startblock && this.endblock){
             console.log(colors.italic(`\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
