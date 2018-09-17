@@ -37,7 +37,7 @@ class WatchActions {
 			this.db = await MongoClient.connect(this.mongoConfig,{ useNewUrlParser: true })
 						.then(client => {
 							console.log(colors.green('mongo connected'));
-							let db = client.db('eosdac');
+							let db = client.db(CONF.db.name);
 							return db;
 						})
 						.catch(e => {console.log(colors.red(e)); return null;} );
