@@ -2,7 +2,7 @@ const eosjs = require('eosjs');
 // const mysql = require('mysql');
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors/safe');
-
+var CONF = require('../api/config.json')
 
 class WatchActions {
 
@@ -12,17 +12,17 @@ class WatchActions {
 
 		this.listen_for_account = 'dacelections';
 
-		this.sleep = 1; 
+		this.sleep = 1;
 		this.offset = 99999999999999999; //this is a hack
 
 		this.start_account_action_seq = -1; //start from specific account action sequence. -1 = resume mode
-		this.mongoConfig = 'mongodb://kasperfish:kasper123@ds151012.mlab.com:51012/eosdac';
+		this.mongoConfig = CONF.db.url;
 
 		this.latest_seq = null;
 
 		this.eos = eosjs({
-		    chainId: '038f4b0fc8ff18a4f0842a8f0564611f6e96e8535901dd45e43ac8691a1c4dca', // 32 byte (64 char) hex string aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906
-		    httpEndpoint: 'http://junglehistory.cryptolions.io:18888', 
+		    chainId: CONF.watcher.chainId, // 32 byte (64 char) hex string aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906
+		    httpEndpoint: CONF.watcher.httpEndpoint,
 		});
 		console.log(colors.green('Connected to EOS network!') );
 
@@ -38,7 +38,7 @@ class WatchActions {
 						.then(client => {
 							console.log(colors.green('mongo connected'));
 							let db = client.db('eosdac');
-							return db; 
+							return db;
 						})
 						.catch(e => {console.log(colors.red(e)); return null;} );
 
@@ -66,14 +66,14 @@ class WatchActions {
 	getAllActions(){
 
 		var self = this;
-		
+
 		return this.eos.getActions({account_name: this.listen_for_account ,pos:this.start_account_action_seq+1, offset: self.offset}).then( async function(a){
-				
+
 				if(!a.actions.length){
 					console.log(colors.yellow('no new actions found after seq '+self.start_account_action_seq ));
 					return false;
 				}
-				
+
 				console.log(colors.magenta(`${self.start_account_action_seq+1} - ${self.start_account_action_seq+a.actions.length}`))
 				let latest_irrevirsible_seq = self.start_account_action_seq;
 				a.actions.forEach(async function(x, i, arr){
@@ -125,7 +125,7 @@ class WatchActions {
 					}catch(e){
 						console.log(colors.yellow(e));
 					};
-					
+
 				}
 				return true;
 		})

@@ -3,8 +3,8 @@ var bodyParser = require("body-parser");
 var routes = require("./routes/routes.js");
 var app = express();
 const MongoClient = require('mongodb').MongoClient;
-
-const mongoConfig = 'mongodb://kasperfish:kasper123@ds151012.mlab.com:51012/eosdac';
+var CONF = require('./config.json')
+const mongoConfig = CONF.db.url;
 
 
 app.use(bodyParser.json());
@@ -19,9 +19,9 @@ app.use(function(req, res, next) {
 
 MongoClient.connect(mongoConfig,{ useNewUrlParser: true }).then(client => {
     console.log('mongo connected');
-    let db = client.db('eosdac');
+    let db = client.db(CONF.db.name);
     routes(app, db);
-    var server = app.listen(3000, function () {
+    var server = app.listen(CONF.api.port, function () {
         console.log("Server running on port.", server.address().port);
     });
 })
