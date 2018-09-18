@@ -98,7 +98,7 @@ class WatchActions {
 					}
 
 					switch (data.actiontype) {
-						case 'storeprofile':
+						case 'stprofileuns':
 							console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
 							data._id = x.action_trace.act.data.cand;
 							data.profile = JSON.parse(x.action_trace.act.data.profile);
