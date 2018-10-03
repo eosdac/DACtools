@@ -2,6 +2,7 @@
     "threshold": 2,
     "keys": [],
     "accounts": [
+        {"permission":{"actor":"dacauthority", "permission":"med"}, "weight":2},
         {"permission":{"actor":"daccustodian", "permission":"eosio.code"}, "weight":1}
     ],
     "waits": [{"wait_sec":30, "weight":1}]
