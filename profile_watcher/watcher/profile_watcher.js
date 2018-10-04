@@ -10,7 +10,7 @@ class WatchActions {
 
 		var self = this;
 
-		this.listen_for_account = CONF.watcher.account;
+		this.listen_for_account = 'dacelections';
 
 		this.sleep = 1;
 		this.offset = 99999999999999999; //this is a hack
@@ -102,19 +102,6 @@ class WatchActions {
 							console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
 							data._id = x.action_trace.act.data.cand;
 							data.profile = JSON.parse(x.action_trace.act.data.profile);
-							// console.log(data)
-							try{
-								await self.db.collection('test').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
-							}catch(e){
-								console.log(colors.yellow(e));
-								return false;
-							}
-							break;
-							
-						case 'stprofile':
-							console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
-							data._id = x.action_trace.act.data.cand;
-							data.profile = x.action_trace.act.data.profile;
 							// console.log(data)
 							try{
 								await self.db.collection('test').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );

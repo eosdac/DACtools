@@ -1,4 +1,5 @@
-var CONF = require('../config.json')
+var CONF = require('../config.json');
+const mc =require("../mailchimp.js");
 
 var appRouter = function (app, db) {
 
@@ -29,6 +30,17 @@ var appRouter = function (app, db) {
       else {
         res.status(400).send({ message: 'invalid accounts supplied' });
       }
+    });
+
+    app.post("/subscribe", async function (req, res) {
+        let data = req.body;
+        if (data.email && data.language) {
+            let msg = await mc.mailchimpAddToList(data.email, data.language);
+            res.status(200).send({ message: msg });
+        }
+        else {
+            res.status(400).send({ message: 'invalid request!' });
+        }
     });
 
 }
