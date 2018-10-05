@@ -23,7 +23,7 @@ function mailchimpAddToList(email, language){
         function(error, response, body){
             if(error) {
                 console.log(error)
-                reject('an error occured');
+                reject('error_occured');
             } 
             else{
                 var bodyObj = JSON.parse(body);
@@ -32,13 +32,13 @@ function mailchimpAddToList(email, language){
 
                 switch(bodyObj.status) {
                     case 400:
-                        msg = 'You are already subscribed.';
+                        msg = 'already_subscribed';
                         break;
                     case 'subscribed':
-                        msg = bodyObj.email_address +' subscribed successfully!';
+                        msg = 'subscribed_successfully';
                         break;
                     default:
-                        msg = 'Something went wrong.'
+                        msg = 'error_occured'
                 } 
                 resolve(msg);
 
