@@ -7,7 +7,7 @@ var appRouter = function (app, db) {
 
         let account = req.params.account;
         if (account.length >= 3 && account.length <= CONF.api.routes['/profile/:account'].max) {
-            db.collection('test').find({_id: account}).toArray((err, result) => {
+            db.collection('profiles').find({_id: account}).toArray((err, result) => {
                 if (err) return console.log(err);
 
                 res.status(200).send(result);
@@ -22,7 +22,7 @@ var appRouter = function (app, db) {
     app.post("/profiles", async function (req, res) {
       let accounts = req.body
       if (accounts.length >= 1 && accounts.length <= CONF.api.routes['/profiles'].max) {
-        db.collection('test').find({_id:{ $in: accounts }} ).toArray((err, result) => {
+        db.collection('profiles').find({_id:{ $in: accounts }} ).toArray((err, result) => {
           if (err) return console.log(err);
             res.status(200).send(result);
         });

@@ -104,7 +104,7 @@ class WatchActions {
 							data.profile = JSON.parse(x.action_trace.act.data.profile);
 							// console.log(data)
 							try{
-								await self.db.collection('test').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
+								await self.db.collection('profiles').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
 							}catch(e){
 								console.log(colors.yellow(e));
 								return false;
@@ -117,7 +117,7 @@ class WatchActions {
 							data.profile = x.action_trace.act.data.profile;
 							// console.log(data)
 							try{
-								await self.db.collection('test').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
+								await self.db.collection('profiles').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
 							}catch(e){
 								console.log(colors.yellow(e));
 								return false;
