@@ -15,7 +15,7 @@
   "watcher": {
     "account": "daccustodian",
     "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
-    "httpEndpoint": "http://ro1.eosdac.io"
+    "httpEndpoint": "http://ro1.eosdac.io:8080"
   },
   "db": {
     "name": "eosdac",
