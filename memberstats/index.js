@@ -8,7 +8,7 @@ const request = require('request');
 class members{
 
     constructor(){
-        this.agreedterms = 2;
+        this.agreedterms = 3;
         this.supply =  994895254.9762;
         this.verbose = false;
 
@@ -24,7 +24,7 @@ class members{
 		this.eos = eosjs({
 		    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 		    keyProvider: null, // WIF string or array of keys..
-		    httpEndpoint: 'https://api.eossweden.se:443',
+		    httpEndpoint: 'https://mainnet.eoscanada.com:443',
    
 		});
 		console.log('Connected to EOS network! \n');
