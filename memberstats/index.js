@@ -8,7 +8,7 @@ const request = require('request');
 class members{
 
     constructor(){
-        this.agreedterms = 3;
+        this.agreedterms = -1; //set to -1 to get all members that have registered before regardless of constitution version
         this.supply =  994895254.9762;
         this.verbose = false;
 
@@ -56,7 +56,15 @@ class members{
           }
         }
 
-        let real_members = temp.filter(x => {return x.agreedterms == this.agreedterms});
+        let real_members;
+
+        if(this.agreedterms === -1){
+            real_members = temp; 
+        }
+        else{
+            real_members = temp.filter(x => {return x.agreedterms == this.agreedterms});
+        }
+        
         console.log(colors.magenta(`Found ${real_members.length} members \n`) );
 
         let stats = await this.getTokenStats();
