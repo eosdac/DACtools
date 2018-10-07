@@ -31,6 +31,8 @@ run_cmd "set account permission $dacextra owner ./perms/resign.json '' -p $dacex
 run_cmd "set account permission $dactokens active ./perms/resign.json owner -p $dactokens@owner"
 run_cmd "set account permission $dactokens owner ./perms/resign.json '' -p $dactokens@owner"
 # resign daccustodian account to dacauthority@active
+run_cmd "set account permission $daccustodian xfer ./perms/daccustodian_transfer.json active -p $daccustodian@owner"
+run_cmd "set action permission $daccustodian eosdactokens transfer xfer -p $daccustodian@owner"
 run_cmd "set account permission $daccustodian active ./perms/resign.json owner -p $daccustodian@owner"
 run_cmd "set account permission $daccustodian owner ./perms/resign.json '' -p $daccustodian@owner"
 # resign dacowner account to dacauthority@active, must allow timelocked transfers from daccustodian@eosio.code

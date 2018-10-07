@@ -9,7 +9,7 @@ source ./conf.sh
 
 
 
-echo -e "\n\n----------------- POPULATE SEQUENCE -------------------\n\n";
+echo -e "\n\n----------------- POPULATING DAC -------------------\n\n";
 
 run_cmd() {
         cmd="$1";
@@ -103,7 +103,7 @@ do
   create_act $CUST $EOSIO_PUB
   run_cmd "transfer -c eosdactokens eosdactokens $CUST \"100000.0000 EOSDAC\""
   run_cmd "push action eosdactokens memberreg '[\"$CUST\", \"$CON_MD5\"]' -p $CUST"
-  run_cmd "transfer -c eosdactokens $CUST daccustodian \"10.0000 EOSDAC\" \"daccustodian\""
+  run_cmd "transfer -c eosdactokens $CUST daccustodian \"35000.0000 EOSDAC\" \"daccustodian\""
   run_cmd "push action daccustodian nominatecand '[\"$CUST\", \"10.0000 EOS\"]' -p $CUST"
 done
 

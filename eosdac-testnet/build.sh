@@ -21,7 +21,7 @@ PWD=`pwd`
 
 cd $DACCONTRACTS/daccustodian/
 git pull
-$EOSIOCPP -o daccustodian.wast daccustodian.cpp
+$EOSIOCPP -DTOKEN_CONTRACT='"eosdactokens"' -DTRANSFER_DELAY=10 -DVOTING_DISABLED=0 -o daccustodian.wast daccustodian.cpp
 
 cd $DACCONTRACTS/eosdactoken/
 git pull
