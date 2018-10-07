@@ -3,6 +3,9 @@ const log = require('single-line-log').stdout;
 const colors = require('colors/safe');
 const pMap = require('p-map');
 const request = require('request');
+const fs = require('fs');
+const MongoClient = require('mongodb').MongoClient;
+// const schedule = require('node-schedule');
 
 
 class members{
@@ -12,7 +15,9 @@ class members{
         this.supply =  994895254.9762;
         this.verbose = false;
 
-        this.tokenstatsapi = 'https://explorer.eosdac.io/explorer_base_api.php?get=tokenstats',
+        this.tokenstatsapi = 'https://explorer.eosdac.io/explorer_base_api.php?get=tokenstats';
+
+        this.mongoConfig = false;
 
 
         console.log(colors.magenta('App started! \n') );
@@ -27,7 +32,7 @@ class members{
 		    httpEndpoint: 'https://mainnet.eoscanada.com:443',
    
 		});
-		console.log('Connected to EOS network! \n');
+		console.log('Connected to EOS network!');
     }
 
     async work(){
@@ -35,8 +40,18 @@ class members{
         let lb='';
         let temp = [];
         this.startblock = await this.getBlockNumber();
+		if(!this.db && this.mongoConfig){
+			this.db = await MongoClient.connect(this.mongoConfig,{ useNewUrlParser: true })
+						.then(client => {
+							console.log(colors.green('mongo connected'));
+							let db = client.db('eosdac');
+							return db;
+						})
+						.catch(e => {console.log(colors.red(e)); return null;} );
 
-        console.log(colors.yellow('Getting All Members!! \n') );
+		}
+
+        console.log(colors.white('Getting All Members.') );
         while(lb !== null){
           let c = await this.getMembers(lb);
           if(c){
@@ -56,12 +71,11 @@ class members{
           }
         }
 
- 
-        // let real_members = temp.filter(x => {return x.agreedterms == this.agreedterms});
+
         let real_members  = temp;
 
         
-        console.log(colors.magenta(`Found a total of ${real_members.length} members \n`) );
+        console.log(`Found a total of ${colors.bgMagenta(real_members.length)} members` );
 
         let stats = await this.getTokenStats();
 
@@ -84,20 +98,26 @@ class members{
             totals.push( this.calculateStats(sorted[list]) );
         });
         totals.push(this.calculateStats(result));
-
         this.endblock = await this.getBlockNumber();
-        this.parseConsole(totals)
-        
+        let p = this.parseConsole(totals);
+        this.SaveToDB(p);
 
+    }
 
-        // console.log('\n');
-        // console.log(colors.magenta.underline('RESULTS:\n'));
-        // console.log(colors.yellow(`There are ${real_members.length} registrations with a combined balance of ${total/10000} EOSDAC`) );
-        // console.log(colors.red(`From these registrations ${zero} accounts have no EOSDAC`));
-        // console.log(colors.yellow(`This means that ${( (total/10000)/this.supply*100).toFixed(2)}% of all tokens (${this.supply}) are registered`) );
-        // console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all accounts that hold EOSDAC (${stats.tot_hodlers})`) );
+    async SaveToDB(entry){
 
+        if(this.mongoConfig && this.db){
+            try{
+                await this.db.collection('memberstats').insertOne({_id: new Date().getTime(), data: entry});
+                console.log('saved to db');
+            }catch(e){
+                console.log(colors.yellow(e));
+            };
 
+        }
+        else{
+            console.log('Not saved, no database configured.')
+        }
     }
 
     calculateStats(members){
@@ -118,24 +138,38 @@ class members{
 
     parseConsole(res){
         console.log('\n');
-        console.log(colors.bgMagenta(`Total Supply = ${this.supply}`) )
+        console.log(colors.underline('RESULTS')+'\n');
+        console.log(colors.bgMagenta(`Total Supply = ${this.supply}`) );
+        let parsed = [];
         res.forEach( (result, index, array) => {
-            let ag = colors.white(result.agreedterms);
-            let tm = colors.magenta(result.total_members);
-            let tl = colors.red(result.tokenless_members);
-            let tw = colors.green(result.total_members-result.tokenless_members);
-            let tk = colors.yellow(result.total_tokens/10000);
-            let perc_t = ( (result.total_tokens/10000)/this.supply*100).toFixed(2)
-    
+            let ag = result.agreedterms;
+            let tm = result.total_members;
+            let tl = result.tokenless_members;
+            let tw = result.total_members-result.tokenless_members;
+            let tk = result.total_tokens/10000;
+            let perc_t = ( (result.total_tokens/10000)/this.supply*100).toFixed(2);
+            
+            let p = [tm, tl, tw, tk, perc_t];
+            let obj = {};
             if (index === array.length - 1){
                 console.log('------------------------------------------------------------------------------\n');
-                console.log(`TOTAL \tmembers ${tm} (${tw} + ${tl}) \t tokens ${tk} ${perc_t}%`)
+                console.log(`TOTAL \tmembers ${colors.magenta(tm)} (${colors.green(tw)} + ${colors.red(tl)}) \t tokens ${colors.yellow(tk)} ${perc_t}%`);
+                obj['total'] = p;
+                parsed.push(obj);
+
+                
             }
             else{
-                console.log(`\nagreedterms v${ag} \t members ${tm} (${tw} + ${tl}) \t tokens ${tk} ${perc_t}%`)
-            }  
+
+                console.log(`\nagreedterms v${colors.white(ag)} \t members ${colors.magenta(tm)} (${colors.green(tw)} + ${colors.red(tl)}) \t tokens ${colors.yellow(tk)} ${perc_t}%`)
+                
+                obj[ag] = p;
+                parsed.push(obj);
+            }
+            
 
         })
+        
         if(this.startblock && this.endblock){
             console.log(colors.italic(`\n\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
             let difblock = this.endblock.head_block_num - this.startblock.head_block_num;
@@ -143,6 +177,7 @@ class members{
         }
 
         console.log('\n\n')
+        return parsed;
 
     }
 
