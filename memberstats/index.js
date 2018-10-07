@@ -8,7 +8,7 @@ const request = require('request');
 class members{
 
     constructor(){
-        this.agreedterms = 2;
+        this.agreedterms = -1; //set to -1 to get all members that have registered before regardless of constitution version
         this.supply =  994895254.9762;
         this.verbose = false;
 
@@ -24,7 +24,7 @@ class members{
 		this.eos = eosjs({
 		    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 		    keyProvider: null, // WIF string or array of keys..
-		    httpEndpoint: 'https://api.eossweden.se:443',
+		    httpEndpoint: 'https://mainnet.eoscanada.com:443',
    
 		});
 		console.log('Connected to EOS network! \n');
@@ -56,42 +56,94 @@ class members{
           }
         }
 
-        let real_members = temp.filter(x => {return x.agreedterms == this.agreedterms});
-        console.log(colors.magenta(`Found ${real_members.length} members \n`) );
+ 
+        // let real_members = temp.filter(x => {return x.agreedterms == this.agreedterms});
+        let real_members  = temp;
+
+        
+        console.log(colors.magenta(`Found a total of ${real_members.length} members \n`) );
 
         let stats = await this.getTokenStats();
 
         console.log(colors.yellow('Retrieving all member balances! \n') );
-        const mapper = mem => this.getBalance(mem.sender).then(res => {return res }).catch(e => {console.log('MAPPER: '+e) });
+        const mapper = mem => this.getBalance(mem.sender).then(res => {mem.amount = res; return mem }).catch(e => {console.log('MAPPER: '+e) });
         let result = await pMap(real_members, mapper, {concurrency: 20 }).then(result => { return result });
+        // console.log(result)
+
+        let sorted = {};
+
+        result.forEach(i => {
+            (sorted[i.agreedterms] = sorted[i.agreedterms] ? sorted[i.agreedterms] : []).push(i);
+        })
+
+        let totals= [];
+
+
+        Object.keys(sorted).forEach(list => {
+
+            totals.push( this.calculateStats(sorted[list]) );
+        });
+        totals.push(this.calculateStats(result));
+
         this.endblock = await this.getBlockNumber();
-        let zero = 0;
-        let total = 0;
-        result.forEach(b => {
-            if(b){
-                b = parseFloat(b.slice(0,-7) )*10000;
-                total += b;
+        this.parseConsole(totals)
+        
+
+
+        // console.log('\n');
+        // console.log(colors.magenta.underline('RESULTS:\n'));
+        // console.log(colors.yellow(`There are ${real_members.length} registrations with a combined balance of ${total/10000} EOSDAC`) );
+        // console.log(colors.red(`From these registrations ${zero} accounts have no EOSDAC`));
+        // console.log(colors.yellow(`This means that ${( (total/10000)/this.supply*100).toFixed(2)}% of all tokens (${this.supply}) are registered`) );
+        // console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all accounts that hold EOSDAC (${stats.tot_hodlers})`) );
+
+
+    }
+
+    calculateStats(members){
+        let result = {agreedterms: members[0].agreedterms, total_members: members.length, tokenless_members: 0, total_tokens: 0 };
+        members.forEach(m => {
+            if(m.amount){
+                let tokens = parseFloat(m.amount.slice(0,-7) )*10000;
+                result.total_tokens += tokens;
             }
             else{
-                zero++;
+                result.tokenless_members ++;
             }
-
         });
 
-        console.log('\n');
-        console.log(colors.magenta.underline('RESULTS:\n'));
-        console.log(colors.yellow(`There are ${real_members.length} registrations with a combined balance of ${total/10000} EOSDAC`) );
-        console.log(colors.red(`From these registrations ${zero} accounts have no EOSDAC`));
-        console.log(colors.yellow(`This means that ${( (total/10000)/this.supply*100).toFixed(2)}% of all tokens (${this.supply}) are registered`) );
-        console.log(colors.yellow(`by ${((real_members.length-zero)/stats.tot_hodlers*100).toFixed(2)}% of all accounts that hold EOSDAC (${stats.tot_hodlers})`) );
+        return result;
 
+    }
+
+    parseConsole(res){
+        console.log('\n');
+        console.log(colors.bgMagenta(`Total Supply = ${this.supply}`) )
+        res.forEach( (result, index, array) => {
+            let ag = colors.white(result.agreedterms);
+            let tm = colors.magenta(result.total_members);
+            let tl = colors.red(result.tokenless_members);
+            let tw = colors.green(result.total_members-result.tokenless_members);
+            let tk = colors.yellow(result.total_tokens/10000);
+            let perc_t = ( (result.total_tokens/10000)/this.supply*100).toFixed(2)
+    
+            if (index === array.length - 1){
+                console.log('------------------------------------------------------------------------------\n');
+                console.log(`TOTAL \tmembers ${tm} (${tw} + ${tl}) \t tokens ${tk} ${perc_t}%`)
+            }
+            else{
+                console.log(`\nagreedterms v${ag} \t members ${tm} (${tw} + ${tl}) \t tokens ${tk} ${perc_t}%`)
+            }  
+
+        })
         if(this.startblock && this.endblock){
-            console.log(colors.italic(`\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
+            console.log(colors.italic(`\n\nThis test started at headblock ${this.startblock.head_block_num} and ended at block ${this.endblock.head_block_num}.`));
             let difblock = this.endblock.head_block_num - this.startblock.head_block_num;
             console.log(colors.italic(`There is a window of ${difblock} (approx ${difblock/2} seconds) blocks in which actions could have happend that are not taken in to account`))
         }
 
         console.log('\n\n')
+
     }
 
     getMembers(lb=''){
