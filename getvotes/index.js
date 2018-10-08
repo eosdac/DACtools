@@ -12,8 +12,8 @@ class BPvotes{
 
     constructor(){
 
-        this.inputFile= './top500.csv';
-        this.doublequotes = true; //add double quotes arround fields in output file.
+        this.inputFile= './top500.csv'; //change this path to point to your input file.
+
 
         this.output_folder ='./output/';
         console.log(colors.magenta('App started!') );
