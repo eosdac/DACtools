@@ -34,9 +34,19 @@ class BPvotes{
     async work(){
         let jsonArray=await csv({noheader:true,trim:true,}).fromFile(this.inputFile); //  { field1: 'gezdenjxgene' },{ field1: 'gq2tknagenes' },
         console.log(colors.magenta(`found ${jsonArray.length} accounts\n`) );
-        const mapper = ac => this.getVotes(ac.field1).then(res => {return res;}).catch(e => {console.log('MAPPER: '+e) });
-        let result = await pMap(jsonArray, mapper, {concurrency: 20 }).then(result => { return result });
-        this.createcsv(result, 'output.csv')
+        let mapper = ac => this.getVotes(ac.field1).then(res => {return res;}).catch(e => {console.log('MAPPER: '+e) });
+        let voters = await pMap(jsonArray, mapper, {concurrency: 20 }).then(result => { return result });
+        let proxies = voters.filter(vt =>vt.proxy !== '' && vt.proxy !== undefined ).map(p => p.proxy);
+        proxies = [ ...new Set(proxies) ];
+
+        console.log(colors.magenta(`\nfound ${proxies.length} used proxies\n`) );
+        mapper = ac => this.getVotes(ac).then(res => {return res;}).catch(e => {console.log('MAPPER: '+e) });
+        if(proxies.length){
+            let proxyvotes = await pMap(proxies, mapper, {concurrency: 20 }).then(result => { return result });
+            this.createcsv(proxyvotes, 'proxies.csv')
+        }
+
+        this.createcsv(voters, 'accounts.csv')
         // this.saveAsJson(result, 'output.json');
     }
 
@@ -44,8 +54,9 @@ class BPvotes{
     getVotes(account){
         return this.eos.getTableRows({"json":"true", "scope":"eosio", "code":"eosio", "table":"voters", "lower_bound":account, "limit":1}).then(res =>{
             let votes = {owner: account};
-            if(res.rows[0].owner === account){
+            if(res.rows[0].owner === account  ){
                 votes = res.rows[0];
+                
             }
             log(colors.green(`${account} -> ${JSON.stringify(votes)}`));
  
