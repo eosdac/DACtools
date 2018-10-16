@@ -1,4 +1,4 @@
-# eosDAC testnet
+# eosDAC testnet purpose
 
 These scripts will install and configure eosDAC contracts on a freshly started chain.
 
