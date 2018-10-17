@@ -1,9 +1,6 @@
 ## Purpose
 Select fastest responding bp node
 
-## Caution
-None.
-
 ## Technical Details
 
 This script will select the fastest responding eos node from the 21 active blockproducers. It can also give you a list of all 21 BP-nodes filtered by https (option).

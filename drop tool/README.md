@@ -1,7 +1,7 @@
 # Purpose
 Tool to script the airdrop process to EOS accounts.
 
-# Warning
+# Caution
 Use this script at your own risk. I have tested the script multiple times on the jungletestnetwork with the genesis snapshot as input data without issues. 
 We at eosDAC also dropped our tokens on the mainnet with this script. I strongly advice to do numerous test runs on the testnetwork before even attempting doing 
 a drop on the mainnet. You really should know how the script works.

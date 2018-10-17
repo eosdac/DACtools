@@ -1,9 +1,6 @@
 ## Purpose
 Get registered member statistics
 
-## Caution
-None.
-
 ## Technical Details
 
 Clone repo and install with npm in root folder
