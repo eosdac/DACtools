@@ -23,3 +23,6 @@ Will compile and install the eosDAC contrats, run this if you modify the contrac
 ## permissions.sh
 
 All the DAC accounts will be resigned and permissions set up to allow the dac to operate.
+
+# Author
+eosDAC team members. Contact the team for questions on our Discord channel: https://discord.io/eosdac

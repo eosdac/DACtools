@@ -15,4 +15,4 @@ These are the details provided by the resulting csv:
 - votes
 
 # Author
-eosDAC team members. Contact the team for questions on our Discord channel: https://discord.gg/57KVTk4
+eosDAC team members. Contact the team for questions on our Discord channel: https://discord.io/eosdac

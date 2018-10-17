@@ -24,4 +24,4 @@ Example output of test.js
 
 
 ## Author 
-eosDAC team members. Contact the team for questions on our Discord channel: https://discord.gg/57KVTk4
+eosDAC team members. Contact the team for questions on our Discord channel: https://discord.io/eosdac

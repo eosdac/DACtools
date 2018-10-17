@@ -14,4 +14,4 @@ The different tools include:
 - *profile_watcher* - An express.js tool to watch a profile 
 
 ## Author
-eosDAC team members. Contact the team for questions on our Discord channel: https://discord.gg/57KVTk4
+eosDAC team members. Contact the team for questions on our Discord channel: https://discord.io/eosdac

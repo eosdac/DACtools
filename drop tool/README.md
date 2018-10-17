@@ -13,4 +13,4 @@ Tool allows you to practice with practice runs and encourages it on the jungle t
 # Author
 The drop tool was created by Kasper from eosDAC.
 
-You can contact him on the eosDAC Discord channel: https://discord.gg/57KVTk4 as @Kas#4648 or via Telegram as @kasperfish
+You can contact him on the eosDAC Discord channel: https://discord.io/eosdac as @Kas#4648 or via Telegram as @kasperfish
