@@ -1,7 +1,7 @@
 # DACtools
 
 ## Purpose
-Smart contracts, user interface tools, and scripts to facilitate the deploy
+Smart contracts, user interface tools, and scripts to facilitate the DAC deployment.
 
 ## Technical Details
 
