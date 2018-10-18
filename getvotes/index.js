@@ -75,6 +75,7 @@ class BPvotes{
     }
 
     createcsv(tt, f){
+        var self = this;
         !fs.existsSync(this.output_folder) && fs.mkdirSync(this.output_folder);
         console.log('\nWriting to CSV-file: ' + this.output_folder + f);
         let file = fs.createWriteStream(this.output_folder+f);
@@ -82,11 +83,28 @@ class BPvotes{
   
         tt.forEach(function(v) {
             // account, proxy, staked, last_vote_weight, proxied_vote_weight, is_proxy, votes
+            if((v.staked > 0) && (v.last_vote_weight > 0) && v.producers.length){
+                v.vote_weight_now = self.calculateVotesNow(v.staked);
+                let d = 100000000000000000;
+                v.decay = (Math.abs((v.last_vote_weight*d) - (v.vote_weight_now*d)) /(((v.last_vote_weight*d)+(v.vote_weight_now*d))/2))*100;
+            }
+            else{
+                v.vote_weight_now = 0;
+                v.decay = 0;
+            }
             v.proxy = v.proxy !=''? v.proxy : 0; 
-            let csvline = v.owner+', '+v.proxy+', '+v.staked+', '+v.last_vote_weight+', '+v.proxied_vote_weight+', '+v.is_proxy+', '+JSON.stringify(v.producers)+'\n';
+            let csvline = v.owner+', '+v.proxy+', '+v.staked+', '+v.last_vote_weight+', '+v.proxied_vote_weight+', '+v.is_proxy+', '+v.vote_weight_now+', '+v.decay+'%, '+JSON.stringify(v.producers)+'\n';
             file.write(csvline); 
         });
         file.end();
+    }
+
+    calculateVotesNow(stakeamount){
+        const epoch = 946684800000; 
+        const seconds_per_day = 86400;
+        let now = new Date().getTime()/1000; //in seconds
+        let weight = parseInt( (now - (epoch / 1000)) / (seconds_per_day * 7) )/52 ;
+        return (stakeamount*Math.pow(2, weight)).toFixed(17);
     }
 
     
