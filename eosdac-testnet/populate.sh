@@ -40,6 +40,7 @@ run_cmd "transfer eosio $dacowner \"100000.0000 EOS\""
 
 run_cmd "set contract "$dactokens" "$DACCONTRACTS/eosdactoken/eosdactoken" -p eosdactokens"
 run_cmd "get code $dactokens"
+cleos -u $API_URL push action $dactokens updateconfig '["daccustodian"]' -p $dactokens
 
 cleos -u $API_URL push action $dactokens create '["eosdactokens", "10000000000.0000 EOSDAC", 0]' -p $dactokens
 cleos -u $API_URL push action $dactokens issue '["eosdactokens", "1000000000.0000 EOSDAC", "Issue"]' -p $dactokens
@@ -47,9 +48,10 @@ cleos -u $API_URL push action $dactokens issue '["eosdactokens", "1000000000.000
 run_cmd "set contract daccustodian "$DACCONTRACTS/daccustodian" -p daccustodian"
 run_cmd "get code daccustodian"
 
+run_cmd "get table daccustodian daccustodian config"
 
 run_cmd "push action daccustodian updateconfig dac_config.json -p daccustodian"
-sleep 1;
+
 run_cmd "get table daccustodian daccustodian config"
 
 run_cmd "push action eosdactokens newmemterms terms.json -p eosdactokens"
