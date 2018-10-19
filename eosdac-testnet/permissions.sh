@@ -16,7 +16,7 @@ run_cmd() {
         echo -e "\n\n >> ${green} Next command: $1 \n\n ${reset}";
         #wait;
         #read -p "Press enter to continue ${reset}";
-        eval "cleos -u $API_URL $1";
+        eval "cleos --wallet-url $WALLET_URL -u $API_URL $1";
 }
 
 
@@ -41,8 +41,13 @@ run_cmd "set action permission $dacowner eosio.token transfer xfer -p $dacowner@
 run_cmd "set account permission $dacowner active ./perms/resign.json owner -p $dacowner@owner"
 run_cmd "set account permission $dacowner owner ./perms/resign.json '' -p $dacowner@owner"
 # daccustodian@eosio.code has to be able to updateauth on dacauthority
-run_cmd "set account permission $dacauthority owner ./perms/daccustodian_updateauth.json '' -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority low $EOSIO_PUB owner -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority med $EOSIO_PUB owner -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority high $EOSIO_PUB owner -p $dacauthority@owner"
+run_cmd "set action permission $dacauthority $daccustodian firecust med -p $dacauthority@owner"
+run_cmd "set action permission $dacauthority $daccustodian firecand med -p $dacauthority@owner"
 run_cmd "set action permission $dacauthority eosio updateauth owner -p $dacauthority@owner"
+#run_cmd "set account permission $dacauthority owner ./perms/daccustodian_updateauth.json '' -p $dacauthority@owner"
 
 
 dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"
@@ -50,7 +55,7 @@ dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"
 for act in $dacaccounts
 do
   echo "------------- $act ---------------"
-  cleos -u $API_URL get account -j $act | jq '.permissions'
+  cleos --wallet-url $WALLET_URL -u $API_URL get account -j $act | jq '.permissions'
 done
 
 #run_cmd "set account permission $dacauthority owner ./dac_auth_perms.json '' -p dacauthority@owner"
