@@ -52,6 +52,7 @@ run_cmd "set account permission $dacowner owner ./perms/resign.json '' -p $dacow
 # These 2 actions require a medium permission
 run_cmd "set action permission $dacauthority $daccustodian firecust med -p $dacauthority@owner"
 run_cmd "set action permission $dacauthority $daccustodian firecand med -p $dacauthority@owner"
+run_cmd "set action permission $dacauthority $daccustodian '' high -p $dacauthority@owner"
 #run_cmd "set action permission $dacauthority eosio updateauth owner -p $dacauthority@owner"
 # set dacauthority@owner to point to daccustodian@eosio.code
 run_cmd "set account permission $dacauthority owner ./perms/daccustodian_updateauth.json '' -p $dacauthority@owner"
