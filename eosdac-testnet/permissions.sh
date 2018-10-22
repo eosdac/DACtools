@@ -1,8 +1,5 @@
 #!/bin/bash
 
-green=`tput setaf 2`
-reset=`tput sgr0`
-
 source ./conf_private.sh
 source ./conf_dac.sh
 source ./conf.sh
@@ -11,16 +8,6 @@ source ./functions.sh
 
 
 echo -e "\n\n----------------- PERMISSIONS -------------------\n\n";
-
-run_cmd() {
-        cmd="$1";
-        echo -e "\n\n >> ${green} Next command: $1 \n\n ${reset}";
-        #wait;
-        #read -p "Press enter to continue ${reset}";
-        eval "cleos --wallet-url $WALLET_URL -u $API_URL $1";
-}
-
-
 
 
 dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"

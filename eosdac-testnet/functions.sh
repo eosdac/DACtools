@@ -1,4 +1,6 @@
 
+green=`tput setaf 2`
+reset=`tput sgr0`
 
 run_cmd() {
         cmd="$1";

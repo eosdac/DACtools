@@ -1,9 +1,5 @@
 #!/bin/bash
 
-
-green=`tput setaf 2`
-reset=`tput sgr0`
-
 source ./conf_private.sh
 source ./conf_dac.sh
 source ./conf.sh
