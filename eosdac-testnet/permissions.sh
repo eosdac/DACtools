@@ -56,6 +56,7 @@ run_cmd "set action permission $dacauthority $daccustodian firecand med -p $daca
 run_cmd "set action permission $dacauthority $daccustodian '' high -p $dacauthority@owner"
 #run_cmd "set action permission $dacauthority eosio updateauth owner -p $dacauthority@owner"
 # set dacauthority@owner to point to daccustodian@eosio.code
+run_cmd "set account permission $dacauthority active ./perms/dacauthority_active.json owner -p $dacauthority@owner"
 run_cmd "set account permission $dacauthority owner ./perms/daccustodian_updateauth.json '' -p $dacauthority@owner"
 
 # resign daccustodian account to dacauthority@active

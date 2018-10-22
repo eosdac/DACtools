@@ -1,6 +1,6 @@
 {
     "threshold": 1,
-    "keys": [],
+    "keys": [{"key":"EOS8PpzcMENPHNmmTfcE6Viu9pcqPHTr8iXXm6XX3fVLMggq4MZe2", "weight":1}],
     "accounts": [
         {"permission":{"actor":"dacauthority", "permission":"high"}, "weight":1}
     ],
