@@ -6,21 +6,15 @@ reset=`tput sgr0`
 source ./conf_private.sh
 source ./conf_dac.sh
 source ./conf.sh
+source ./functions.sh
 
 
 
 echo -e "\n\n----------------- UPDATING CONFIG -------------------\n\n";
 
-run_cmd() {
-        cmd="$1";
-        echo -e "\n\n >> ${green} Next command: $1 \n\n ${reset}";
-        #wait;
-        #read -p "Press enter to continue ${reset}";
-        eval "cleos --wallet-url $WALLET_URL -u $API_URL $1";
-}
-
 ./msig/gen_requested_permissions.py
 
+run
 run_cmd "push action -s -d -j daccustodian updateconfig dac_config2.json -p dacauthority@high > updateconfig.trx"
 run_cmd "multisig cancel eosdaccustab updconfig eosdaccustab"
 run_cmd "multisig propose_trx updconfig ./requested_perms.json updateconfig.trx eosdaccustab"

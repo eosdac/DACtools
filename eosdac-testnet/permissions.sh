@@ -6,6 +6,7 @@ reset=`tput sgr0`
 source ./conf_private.sh
 source ./conf_dac.sh
 source ./conf.sh
+source ./functions.sh
 
 
 
