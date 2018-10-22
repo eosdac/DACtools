@@ -42,7 +42,7 @@ run_cmd "set account permission $dacauthority one $EOSIO_PUB low -p $dacauthorit
 # resign dacowner account to dacauthority@active, must allow timelocked transfers
 # from daccustodian@eosio.code
 # daccustodian_transfer.json allows the contract to make transfers with a time delay, or
-# dacauthority@low without a time delay.  dacowner must have permission in xfer to transfer tokens
+# dacauthority@med without a time delay.  dacowner must have permission in xfer to transfer tokens
 run_cmd "set account permission $dacowner xfer ./perms/daccustodian_transfer.json active -p $dacowner@owner"
 run_cmd "set action permission $dacowner eosio.token transfer xfer -p $dacowner@owner"
 run_cmd "set account permission $dacowner active ./perms/resign.json owner -p $dacowner@owner"

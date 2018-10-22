@@ -21,7 +21,7 @@ run_cmd() {
 
 ./msig/gen_requested_permissions.py
 
-run_cmd "transfer -s -d -j $dacowner eosio \"100.0000 EOS\" \"An msig transfer by low\" -p $dacowner@xfer > transfer.trx"
+run_cmd "transfer -s -d -j $dacowner eosio \"100.0000 EOS\" \"An msig transfer by med\" -p $dacowner@xfer > transfer.trx"
 run_cmd "multisig cancel eosdaccustab txprop eosdaccustab"
 run_cmd "multisig propose_trx txprop ./requested_perms.json transfer.trx eosdaccustab"
 
