@@ -2,9 +2,9 @@ const request = require('request');
 
 class NodeSelector {
 
-		constructor (){
+		constructor (nodes_api_url){
 			//configs
-			this.nodes_api_url = 'https://eosdac.io/topnodes.json';
+			this.nodes_api_url = nodes_api_url;
 			this.benchmark_url ='/v1/chain/get_info';
 		}
 
@@ -17,9 +17,9 @@ class NodeSelector {
 				}catch(e){};//no need to catch the error here
 			}
 			//return false if node api error
-			if(!this.nodelist){
-				console.log('error getting node list!'); 
-				return false
+			if(!this.nodelist || !this.nodelist.length){
+				console.log('error getting node list from api server!');
+				return false;
 			}
 
 			return new Promise(async function(resolve, reject){
@@ -44,7 +44,7 @@ class NodeSelector {
 			var self = this;
 			return new Promise(function(resolve, reject) {
 				request({
-					url : self.nodes_api_url, 
+					url : self.nodes_api_url,
 					json:true
 
 				}, function(err, response, body){
@@ -58,10 +58,10 @@ class NodeSelector {
 							self.nodelist = body.filter((node) => node.startsWith('https'));
 							self.nodelist = self.nodelist.map(node => {
 								 node = node.substr(-1) =='/'?node.slice(0,-1):node;
-								return node 
+								return node
 							})
 						}
-						resolve(self.nodelist);			
+						resolve(self.nodelist);
 					}
 				});
 			});
@@ -77,22 +77,22 @@ class NodeSelector {
 			this.proms = [];
 			this.nodelist.forEach((node, index) => {
 				node = node.substr(-1) =='/'?node.slice(0,-1):node;
-				let p = this._racer_request(node).then(res => res ).catch(e => e ); 
+				let p = this._racer_request(node).then(res => res ).catch(e => e );
 				this.proms.push(p)
 			});
 			return Promise.race(this.proms).then(function(winner) {
 				return winner;
 			})
 		}
-    
+
 		_racer_request(node_url){
 			var self = this;
 			let url = node_url;
 			return new Promise(function(resolve, reject) {
 				request({
-					url : url, 
-					time : true, 
-					rejectUnauthorized: false, 
+					url : url + self.benchmark_url,
+					time : true,
+					rejectUnauthorized: false,
 					headers: {'User-Agent': 'Chrome/59.0.3071.115'},
 
 				}, function(err, response){
@@ -102,12 +102,12 @@ class NodeSelector {
 					else{
 						resolve({node: node_url, ms: response.elapsedTime});
 					}
-					
+
 				});
 			});
 		}
 }//end class
-
-module.exports = {
+export default NodeSelector
+/*module.exports = {
     NodeSelector
-};
+};*/
