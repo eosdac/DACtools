@@ -15,13 +15,13 @@ run_cmd() {
         echo -e "\n\n >> ${green} Next command: $1 \n\n ${reset}";
         #wait;
         #read -p "Press enter to continue ${reset}";
-        eval "cleos -u $API_URL $1";
+        eval "cleos --wallet-url $WALLET_URL -u $API_URL $1";
 }
 
 create_act() {
   act="$1"
   key="$2"
-  eval "cleos -u $API_URL system newaccount --stake-cpu \"10.0000 EOS\" --stake-net \"10.0000 EOS\" --transfer --buy-ram-kbytes 1024 eosio $act $key"
+  eval "cleos --wallet-url $WALLET_URL -u $API_URL system newaccount --stake-cpu \"10.0000 EOS\" --stake-net \"10.0000 EOS\" --transfer --buy-ram-kbytes 1024 eosio $act $key"
 }
 
 
@@ -29,11 +29,11 @@ run_cmd "set contract eosio "$CONTRACTS/eosio.bios" -p eosio";
 
 run_cmd "create account eosio eosio.msig $EOSIO_PUB"
 sleep 1;
-cleos -u $API_URL get account eosio.msig;
+cleos --wallet-url $WALLET_URL -u $API_URL get account eosio.msig;
 
 run_cmd "create account eosio eosio.token $EOSIO_PUB"
 sleep 1;
-cleos -u $API_URL get account eosio.token;
+cleos --wallet-url $WALLET_URL -u $API_URL get account eosio.token;
 
 run_cmd "create account eosio eosio.ram $EOSIO_PUB"
 sleep 1;
@@ -73,16 +73,16 @@ run_cmd "get code eosio.msig"
 run_cmd "set contract eosio.token "$CONTRACTS/eosio.token" -p eosio.token"
 run_cmd "get code eosio.token"
 
-cleos -u $API_URL push action eosio.token create '["eosio","10000000000.0000 EOS"]' -p eosio.token
+cleos --wallet-url $WALLET_URL -u $API_URL push action eosio.token create '["eosio","10000000000.0000 EOS"]' -p eosio.token
 
-cleos -u $API_URL get currency stats eosio.token EOS
+cleos --wallet-url $WALLET_URL -u $API_URL get currency stats eosio.token EOS
 
-cleos -u $API_URL push action eosio.token issue '["eosio",  "1000000000.0000 EOS", "initial issuance"]' -p eosio
+cleos --wallet-url $WALLET_URL -u $API_URL push action eosio.token issue '["eosio",  "1000000000.0000 EOS", "initial issuance"]' -p eosio
 
-cleos -u $API_URL get currency stats eosio.token EOS
+cleos --wallet-url $WALLET_URL -u $API_URL get currency stats eosio.token EOS
 
 
-
+sleep 1
 
 # Install system contract
 run_cmd "set contract eosio "$CONTRACTS/eosio.system" -p eosio"
