@@ -25,7 +25,7 @@ run_cmd "transfer -s -d -j $dacowner eosio \"100.0000 EOS\" \"An msig transfer b
 run_cmd "multisig cancel eosdaccustab txprop eosdaccustab"
 run_cmd "multisig propose_trx txprop ./requested_perms.json transfer.trx eosdaccustab"
 
-for x in {a..g}
+for x in {a..i}
 do
   CUST="eosdaccusta$x"
   run_cmd "multisig approve eosdaccustab txprop '{\"actor\":\"$CUST\", \"permission\":\"active\"}' -p $CUST"
