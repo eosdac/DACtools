@@ -40,7 +40,11 @@ run_cmd "transfer eosio $dacowner \"100000.0000 EOS\""
 
 run_cmd "set contract "$dactokens" "$DACCONTRACTS/eosdactoken/eosdactoken" -p eosdactokens"
 run_cmd "get code $dactokens"
-cleos --wallet-url $WALLET_URL -u $API_URL push action $dactokens updateconfig '["daccustodian"]' -p $dactokens
+
+run_cmd "push action $dactokens newmemterms terms.json -p $dactokens"
+echo "[$daccustodian]" > token_config.json
+run_cmd "push action $dactokens updateconfig token_config.json -p $dactokens"
+rm -f token_config.json
 
 cleos --wallet-url $WALLET_URL -u $API_URL push action $dactokens create '["eosdactokens", "10000000000.0000 EOSDAC", 0]' -p $dactokens
 cleos --wallet-url $WALLET_URL -u $API_URL push action $dactokens issue '["eosdactokens", "1000000000.0000 EOSDAC", "Issue"]' -p $dactokens
@@ -50,14 +54,10 @@ run_cmd "get code $daccustodian"
 
 run_cmd "get table $daccustodian daccustodian config"
 
-run_cmd "push action $daccustodian updateconfig dac_config.json -p $daccustodian"
+run_cmd "push action $daccustodian updateconfig dac_config.json -p $dacauthority"
 
 run_cmd "get table $daccustodian $daccustodian config"
 
-run_cmd "push action $dactokens newmemterms terms.json -p $dactokens"
-echo "[$daccustodian]" > token_config.json
-run_cmd "push action $dactokens updateconfig token_config.json -p $dactokens"
-rm -f token_config.json
 
 # Developer accounts
 create_devs() {
