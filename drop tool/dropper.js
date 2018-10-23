@@ -49,7 +49,7 @@ class Drop {
 		//you need to change this query to match the records/accounts you want to drop to.
 		this.drop_query = `SELECT ${this.column_name_accounts}, ${this.column_name_token_amount} 
 								FROM ${this.table_name} 
-								WHERE ${this.column_name_token_amount} < 0 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
+								WHERE ${this.column_name_token_amount} > 0 && iscontract = 0 && isedfallback IS NULL && account_valid != 0 && trx = '' LIMIT ${this.batch_size}`;
 		
 		//this query is used to verify the token drop. The verification happens through retrieving the on chain balance and comparing it with the value in your table.
 		//Mind that this only works if the tokens are sent in a frozen/locked state. If you don't have a token contract with lock function or don't know how to set it
