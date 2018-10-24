@@ -1,0 +1,17 @@
+{
+  "api": {
+    "port": 3000,
+    "routes": {
+      "/profile/:account": {
+        "type": "String",
+        "max": 13
+      }
+  
+    }
+  },
+
+  "db": {
+    "name": "eosdac",
+    "url": "mongodb://kasperfish:kasper123@ds151012.mlab.com:51012/eosdac"
+  }
+}

@@ -16,9 +16,7 @@ class members{
         this.verbose = false;
 
         this.tokenstatsapi = 'https://explorer.eosdac.io/explorer_base_api.php?get=tokenstats';
-
         this.mongoConfig = false;
-
 
         console.log(colors.magenta('App started! \n') );
         this._initEos();
@@ -77,7 +75,7 @@ class members{
         
         console.log(`Found a total of ${colors.bgMagenta(real_members.length)} members` );
 
-        let stats = await this.getTokenStats();
+        // let stats = await this.getTokenStats();
 
         console.log(colors.yellow('Retrieving all member balances! \n') );
         const mapper = mem => this.getBalance(mem.sender).then(res => {mem.amount = res; return mem }).catch(e => {console.log('MAPPER: '+e) });
