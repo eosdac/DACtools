@@ -1,0 +1,28 @@
+{
+  "api": {
+    "port": 3000,
+    "routes": {
+      "/profile/:account": {
+        "type": "String",
+        "max": 13
+      },
+      "/profiles": {
+        "type": "Array",
+        "max": 500
+      }
+    }
+  },
+  "watcher": {
+    "account": "daccustodian",
+    "chainId": "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906",
+    "httpEndpoint": "http://ro1.eosdac.io:8080"
+  },
+  "db": {
+    "name": "eosdac",
+    "url": "mongodb://localhost:27017/eosdac"
+  },
+  "mailchimp": {
+    "url": "https://us17.api.mailchimp.com/3.0/lists/a01ffdf7d2/members",
+    "apiKey": "apikeyherexxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}
