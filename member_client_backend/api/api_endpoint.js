@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var routes = require("./routes/routes.js");
 var app = express();
 const MongoClient = require('mongodb').MongoClient;
-var CONF = require('./config.json')
+var CONF = require('../config.json')
 const mongoConfig = CONF.db.url;
 
 

@@ -1,4 +1,4 @@
-var CONF = require('../config.json');
+var CONF = require('../../config.json');
 const mc =require("../mailchimp.js");
 
 var appRouter = function (app, db) {

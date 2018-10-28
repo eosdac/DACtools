@@ -2,7 +2,7 @@ const eosjs = require('eosjs');
 // const mysql = require('mysql');
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors/safe');
-var CONF = require('../api/config.json')
+var CONF = require('../config.json')
 
 class WatchActions {
 
