@@ -4,7 +4,6 @@ const mc =require("../mailchimp.js");
 var appRouter = function (app, db) {
 
     app.get("/profile/:account", async function (req, res) {
-
         let account = req.params.account;
         if (account.length >= 3 && account.length <= CONF.api.routes['/profile/:account'].max) {
             db.collection('profiles').find({_id: account}).toArray((err, result) => {

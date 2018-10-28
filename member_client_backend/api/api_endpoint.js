@@ -25,4 +25,4 @@ MongoClient.connect(mongoConfig,{ useNewUrlParser: true }).then(client => {
         console.log("Server running on port.", server.address().port);
     });
 })
-.catch(e => {console.log(colors.red(e)); return null;} );
+.catch(e => {console.log(e); return null;} );
