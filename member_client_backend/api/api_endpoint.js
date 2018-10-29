@@ -3,7 +3,7 @@ var bodyParser = require("body-parser");
 var routes = require("./routes/routes.js");
 var app = express();
 const MongoClient = require('mongodb').MongoClient;
-var CONF = require('./config.json')
+var CONF = require('../config.json')
 const mongoConfig = CONF.db.url;
 
 
@@ -25,4 +25,4 @@ MongoClient.connect(mongoConfig,{ useNewUrlParser: true }).then(client => {
         console.log("Server running on port.", server.address().port);
     });
 })
-.catch(e => {console.log(colors.red(e)); return null;} );
+.catch(e => {console.log(e); return null;} );
