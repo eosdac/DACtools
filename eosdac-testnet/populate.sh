@@ -13,7 +13,7 @@ echo -e "\n\n----------------- POPULATING DAC -------------------\n\n";
 
 
 
-dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"
+dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian $dacservice"
 
 for act in $dacaccounts
 do
@@ -36,14 +36,18 @@ rm -f token_config.json
 cleos --wallet-url $WALLET_URL -u $API_URL push action $dactokens create '["eosdactokens", "10000000000.0000 EOSDAC", 0]' -p $dactokens
 cleos --wallet-url $WALLET_URL -u $API_URL push action $dactokens issue '["eosdactokens", "1000000000.0000 EOSDAC", "Issue"]' -p $dactokens
 
-run_cmd "set contract $daccustodian "$DACCONTRACTS/daccustodian" -p daccustodian"
+run_cmd "set contract $daccustodian "$DACCONTRACTS/daccustodian" -p $daccustodian"
 run_cmd "get code $daccustodian"
 
 run_cmd "get table $daccustodian daccustodian config"
 
-run_cmd "push action $daccustodian updateconfig dac_config.json -p $dacauthority"
+run_cmd "push action $daccustodian updateconfig dac_config.json -p $daccustodian"
 
 run_cmd "get table $daccustodian $daccustodian config"
+
+
+run_cmd "set contract $dacservice "$DACCONTRACTS/dacservice" -p $dacservice"
+run_cmd "get code $dacservice"
 
 
 # Developer accounts
