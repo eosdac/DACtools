@@ -10,3 +10,7 @@ dactokens="eosdactokens"
 dacowner="eosdacthedac"
 # An extra account used by eosDAC
 dacextra="eosdacserver"
+# Account which creates these accounts
+dacgenesis="eosio"
+# Service provider accounts
+dacservice="dacocoiogmbh"
