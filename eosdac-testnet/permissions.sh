@@ -12,6 +12,15 @@ echo -e "\n\n----------------- PERMISSIONS -------------------\n\n";
 
 dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"
 
+
+# These have to be set now because they are required in daccustodian_transfer.json
+# These permissions are set in new period to the custodians with each configured threshold
+run_cmd "set account permission $dacauthority high $EOSIO_PUB owner -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority med $EOSIO_PUB high -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority low $EOSIO_PUB med -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority one $EOSIO_PUB low -p $dacauthority@owner"
+
+
 # resign extra account to dacauthority@active
 run_cmd "set account permission $dacextra active ./perms/resign.json owner -p $dacextra@owner"
 run_cmd "set account permission $dacextra owner ./perms/resign.json '' -p $dacextra@owner"
@@ -42,12 +51,7 @@ run_cmd "set account permission $daccustodian active ./perms/resign.json owner -
 run_cmd "set account permission $daccustodian owner ./perms/resign.json '' -p $daccustodian@owner"
 
 
-# These have to be set now because they are required in daccustodian_transfer.json
-# These permissions are set in new period to the custodians with each configured threshold
-run_cmd "set account permission $dacauthority high $EOSIO_PUB owner -p $dacauthority@owner"
-run_cmd "set account permission $dacauthority med $EOSIO_PUB high -p $dacauthority@owner"
-run_cmd "set account permission $dacauthority low $EOSIO_PUB med -p $dacauthority@owner"
-run_cmd "set account permission $dacauthority one $EOSIO_PUB low -p $dacauthority@owner"
+
 # Allow high to call any action on daccustodian
 run_cmd "set action permission $dacauthority $daccustodian '' high -p $dacauthority@owner"
 #run_cmd "set action permission $dacauthority $daccustodian '' high -p $dacauthority@owner"
