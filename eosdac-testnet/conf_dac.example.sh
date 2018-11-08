@@ -14,3 +14,5 @@ dacextra="eosdacserver"
 dacgenesis="eosio"
 # Service provider accounts
 dacservice="dacocoiogmbh"
+# Multisig relay
+dacmultisigs="dacmultisigs"

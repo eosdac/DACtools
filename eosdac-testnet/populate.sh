@@ -13,7 +13,7 @@ echo -e "\n\n----------------- POPULATING DAC -------------------\n\n";
 
 
 
-dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian $dacservice"
+dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian $dacservice $dacmultisigs"
 
 for act in $dacaccounts
 do
@@ -48,6 +48,10 @@ run_cmd "get table $daccustodian $daccustodian config"
 
 run_cmd "set contract $dacservice "$DACCONTRACTS/dacservice" -p $dacservice"
 run_cmd "get code $dacservice"
+
+# Set dacmultisigs contract
+run_cmd "set contract $dacmultisigs "$DACCONTRACTS/eosdacmultis" -p $dacmultisigs"
+run_cmd "get code $dacmultisigs"
 
 
 # Developer accounts
