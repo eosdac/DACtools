@@ -10,7 +10,6 @@ source ./functions.sh
 echo -e "\n\n----------------- PERMISSIONS -------------------\n\n";
 
 
-dacaccounts="$dacextra $dacowner $dactokens $dacauthority $daccustodian"
 
 
 # These have to be set now because they are required in daccustodian_transfer.json
