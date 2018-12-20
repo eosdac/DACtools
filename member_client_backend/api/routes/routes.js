@@ -1,4 +1,4 @@
-var CONF = require('../../config.json');
+const CONF = require('../config.json');
 const mc =require("../mailchimp.js");
 
 var appRouter = function (app, db) {
@@ -41,6 +41,18 @@ var appRouter = function (app, db) {
             res.status(400).send({ message: 'invalid request!' });
         }
     });
+
+    app.get("/msigproposals", async function (req, res) {
+      
+          db.collection('msigproposals').find({}).toArray((err, result) => {
+            if (err) return console.log(err);
+              res.status(200).send(result);
+          });
+        
+       
+        //   res.status(400).send({ message: 'invalid accounts supplied' });
+        
+      });
 
 }
 

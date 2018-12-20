@@ -1,5 +1,5 @@
 const request = require('request');
-var CONF = require('../config.json');
+var CONF = require('./config.json');
 
 function mailchimpAddToList(email, language){
     var subscriber = JSON.stringify({

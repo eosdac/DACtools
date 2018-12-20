@@ -2,7 +2,7 @@ const eosjs = require('eosjs');
 // const mysql = require('mysql');
 const MongoClient = require('mongodb').MongoClient;
 const colors = require('colors/safe');
-var CONF = require('../config.json')
+var CONF = require('../api/config.json')
 
 class WatchActions {
 
@@ -10,7 +10,7 @@ class WatchActions {
 
 		var self = this;
 
-		this.listen_for_account = CONF.watcher.account;
+		this.listen_for_account = CONF.watcher.contracts.custodian;
 
 		this.sleep = 1;
 		this.offset = 99999999999999999; //this is a hack
@@ -27,11 +27,10 @@ class WatchActions {
 		console.log(colors.green('Connected to EOS network!') );
 
 		this.daemon();
-		// this.getAllActions();
+
 	}
 
 	async daemon(){
-		var self = this;
 
 		if(!this.db){
 			this.db = await MongoClient.connect(this.mongoConfig,{ useNewUrlParser: true })
@@ -44,10 +43,9 @@ class WatchActions {
 
 			if(this.start_account_action_seq === -1){//resume mode
 				try{
-					let last = await this.db.collection('state').findOne({_id: 1});
-					// console.log(last);
+					let last = await this.db.collection('state').findOne({_id: CONF.watcher.contracts.custodian});
+					console.log('Resuming from: ', last);
 					this.start_account_action_seq = last.irr_seq;
-					console.log(this.start_account_action_seq);
 				}catch(e){
 					console.log(colors.red('could not get last irrevirsible seq from database.'));
 					console.log(colors.yellow(e));
@@ -56,96 +54,106 @@ class WatchActions {
 			}
 		}
 
-		let actions = await self.getAllActions();
-
-		await self._sleep(self.sleep*1000);
-		self.daemon();
+		let actions = await this.getAllActions();
+		if(actions){
+			await this.processActions(actions);
+		}
+		
+		await this._sleep(this.sleep*5000);
+		this.daemon();
 
 	}
 
-	getAllActions(){
+	async getAllActions(){
 
-		var self = this;
-
-		return this.eos.getActions({account_name: this.listen_for_account ,pos:this.start_account_action_seq+1, offset: self.offset}).then( async function(a){
-
+		return this.eos.getActions({account_name: this.listen_for_account ,pos:this.start_account_action_seq+1, offset: this.offset}).then( a =>{
 				if(!a.actions.length){
-					console.log(colors.yellow('no new actions found after seq '+self.start_account_action_seq ));
+					console.log(colors.yellow('no new actions found after seq '+this.start_account_action_seq ));
 					return false;
 				}
-
-				console.log(colors.magenta(`${self.start_account_action_seq+1} - ${self.start_account_action_seq+a.actions.length}`))
-				let latest_irrevirsible_seq = self.start_account_action_seq;
-				a.actions.forEach(async function(x, i, arr){
-
-					//ignore actions that come from other contracts
-					if(x.action_trace.act.account !== self.listen_for_account){
-						return false;
-					}
-
-					let data = {}; //object to store in db
-					data.account_action_seq = x.account_action_seq;
-					data.actiontype = x.action_trace.act.name;
-					data.block_num = x.block_num;
-					data.last_irreversible_block = a.last_irreversible_block;
-					data.block_time = x.block_time;
-					data.txid = x.action_trace.trx_id;
-					data.irrevirsible = false;
-
-					if(data.block_num <= a.last_irreversible_block ){
-						data.irrevirsible = true;
-						latest_irrevirsible_seq = x.account_action_seq;
-					}
-
-					switch (data.actiontype) {
-						case 'stprofileuns':
-							console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
-							data._id = x.action_trace.act.data.cand;
-							data.profile = JSON.parse(x.action_trace.act.data.profile);
-							// console.log(data)
-							try{
-								await self.db.collection('profiles').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
-							}catch(e){
-								console.log(colors.yellow(e));
-								return false;
-							}
-							break;
-
-						case 'stprofile':
-							console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
-							data._id = x.action_trace.act.data.cand;
-							data.profile = x.action_trace.act.data.profile;
-							// console.log(data)
-							try{
-								await self.db.collection('profiles').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
-							}catch(e){
-								console.log(colors.yellow(e));
-								return false;
-							}
-					        break;
-
-					    default:
-					        console.log(colors.red('Unknown Action!') );
-					};
-
-				});
-
-				if(latest_irrevirsible_seq > self.start_account_action_seq){
-					try{
-						await self.db.createCollection("state", { capped : true, size: 4096, max : 1 } );
-						await self.db.collection('state').replaceOne({ _id: 1 }, {_id: 1, irr_seq: latest_irrevirsible_seq}, { upsert: true } );
-						self.start_account_action_seq = latest_irrevirsible_seq;
-					}catch(e){
-						console.log(colors.yellow(e));
-					};
-
-				}
-				return true;
+				console.log(colors.magenta(`${this.start_account_action_seq+1} - ${this.start_account_action_seq+a.actions.length}`))
+				return a;
 		})
 		.catch(x => console.log(x) );
 	}
 
+	async processActions(a){
+		
+		var self = this;
+		let latest_irrevirsible_seq = self.start_account_action_seq;
+
+		a.actions.forEach(async function(x, i, arr){
+
+			let data = {}; //object to store in db
+			data.account_action_seq = x.account_action_seq;
+			data.actiontype = x.action_trace.act.name;
+			data.block_num = x.block_num;
+			data.last_irreversible_block = a.last_irreversible_block;
+			data.block_time = x.block_time;
+			data.txid = x.action_trace.trx_id;
+			data.irrevirsible = false;
+
+			if(data.block_num <= a.last_irreversible_block ){
+				data.irrevirsible = true;
+				latest_irrevirsible_seq = x.account_action_seq;
+			}
+
+			//Don't proceed if the action originate from an other contract!!!
+			if(x.action_trace.act.account !== self.listen_for_account){
+				return false;
+			}
+
+			switch (data.actiontype) {
+				case 'stprofileuns':
+					console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
+					// data._id = x.action_trace.act.data.cand;
+					data.profile = JSON.parse(x.action_trace.act.data.profile);
+					// console.log(data)
+					try{
+						let v = await self.db.collection('profiles').updateOne({ _id: x.action_trace.act.data.cand }, {$set:data}, { upsert: true } );
+						await self._sleep(1000);
+						console.log('1');
+
+					}catch(e){
+						console.log(colors.yellow(e));
+						return false;
+					}
+					break;
+
+				case 'stprofile':
+					console.log('found '+ data.account_action_seq +' irrevirsible:'+ data.irrevirsible);
+					data._id = x.action_trace.act.data.cand;
+					data.profile = x.action_trace.act.data.profile;
+					// console.log(data)
+					try{
+						await self.db.collection('profiles').updateOne({ _id: data._id }, {$set:data}, { upsert: true } );
+					}catch(e){
+						console.log(colors.yellow(e));
+						return false;
+					}
+					break;
+
+				default:
+					console.log(colors.red('Unknown Action!') );
+			};
+
+		});
+
+		if(latest_irrevirsible_seq > self.start_account_action_seq){
+			try{
+				// await self.db.createCollection("state", { capped : true, size: 4096, max : 1 } );
+				await self.db.collection('state').updateOne({ _id: CONF.watcher.contracts.custodian }, {$set: {'irr_seq': latest_irrevirsible_seq} }, { upsert: true } );
+				// await self.db.collection('state').replaceOne({ _id: 1 }, {_id: 1, irr_seq: latest_irrevirsible_seq}, { upsert: true } );
+				self.start_account_action_seq = latest_irrevirsible_seq;
+			}catch(e){
+				console.log(colors.yellow(e));
+			};
+
+		}
+	}
+
 	_sleep(t) {
+		console.log('sleep for', t);
     	return new Promise(resolve => setTimeout(resolve, t));
 	}
 
