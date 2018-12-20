@@ -18,8 +18,14 @@ git pull
 cd eosdactoken/
 $EOSIOCPP -o eosdactoken.wasm eosdactoken.cpp
 
+cd $DACCONTRACTS/dacservice/
+git pull
+$EOSIOCPP -DTRANSFER_DELAY=60 -o dacservice.wasm dacservice.cpp
+
 cd $PWD
 
-run_cmd "set contract "$dactokens" "$DACCONTRACTS/eosdactoken/eosdactoken" -p eosdactokens"
+run_cmd "set contract "$dactokens" "$DACCONTRACTS/eosdactoken/eosdactoken" -p $dactokens"
 
-run_cmd "set contract "$daccustodian" "$DACCONTRACTS/daccustodian" -p daccustodian"
+run_cmd "set contract "$daccustodian" "$DACCONTRACTS/daccustodian" -p $daccustodian"
+
+run_cmd "set contract "$dacservice" "$DACCONTRACTS/dacservice" -p $dacservice"

@@ -67,7 +67,7 @@ cleos --wallet-url $WALLET_URL -u $API_URL push action eosio.token issue '["eosi
 cleos --wallet-url $WALLET_URL -u $API_URL get currency stats eosio.token EOS
 
 
-sleep 1
+sleep 2
 
 # Install system contract
 run_cmd "set contract eosio "$CONTRACTS/eosio.system" -p eosio"
