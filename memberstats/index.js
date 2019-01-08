@@ -27,7 +27,7 @@ class members{
 		this.eos = eosjs({
 		    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 		    keyProvider: null, // WIF string or array of keys..
-		    httpEndpoint: 'https://mainnet.eoscanada.com:443',
+		    httpEndpoint: 'https://proxy.eosnode.tools:443',
    
 		});
 		console.log('Connected to EOS network!');
@@ -187,7 +187,7 @@ class members{
             "table":"members",
             "lower_bound":lb,
             "upper_bound":"",
-            "limit":0,
+            "limit":-1,
             "key_type":"",
             "index_position":""
         }).then(res => res.rows).catch(e => {console.log(e); return false;})
