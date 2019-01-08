@@ -85,7 +85,7 @@ class members{
         let sorted = {};
 
         result.forEach(i => {
-            (sorted[i.agreedterms] = sorted[i.agreedterms] ? sorted[i.agreedterms] : []).push(i);
+            (sorted[i.agreedtermsversion] = sorted[i.agreedtermsversion] ? sorted[i.agreedtermsversion] : []).push(i);
         })
 
         let totals= [];
@@ -119,7 +119,7 @@ class members{
     }
 
     calculateStats(members){
-        let result = {agreedterms: members[0].agreedterms, total_members: members.length, tokenless_members: 0, total_tokens: 0 };
+        let result = {agreedterms: members[0].agreedtermsversion, total_members: members.length, tokenless_members: 0, total_tokens: 0 };
         members.forEach(m => {
             if(m.amount){
                 let tokens = parseFloat(m.amount.slice(0,-7) )*10000;
