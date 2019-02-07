@@ -28,10 +28,18 @@ class members{
       let lb='';
       let members = [];
       let voters = [];
+      let keys = [];
       let sql = [];
-      this.startblock = await this.getBlockNumber();
+      let string_to_write = '';
+      let this_member = {};
+/*
+      members[0] = {"sender":'1lukestokes1'};
+      members[1] = {"sender":'lukeeosproxy'};
 
-      console.log(colors.white('Getting All Members.') );
+      voters[0] = {"voter":'1lukestokes1'};
+      voters[1] = {"voter":'lukeeosproxy'};
+*/
+      console.log(colors.white('Getting All Members') );
       while(lb !== null){
         let c = await this.getMembers(lb);
         if(c){
@@ -50,9 +58,8 @@ class members{
             }
         }
       }
-
       lb='';
-      console.log(colors.white('Getting All Voters.') );
+      console.log(colors.white('Getting All Voters') );
       while(lb !== null){
         let c = await this.getVoters(lb);
         if(c){
@@ -72,6 +79,23 @@ class members{
         }
       }
 
+      console.log(colors.white('Getting All Member Keys') );
+      const mapper = mem => this.getAccount(mem.sender).then(res => {
+        mem.keys = [];
+        mem.keys['active'] = '';
+        mem.keys['owner'] = '';
+        for (var i = res.permissions.length - 1; i >= 0; i--) {
+          if (res.permissions[i].perm_name == 'owner' && res.permissions[i].required_auth.keys.length > 0) {
+            mem.keys['owner'] = res.permissions[i].required_auth.keys[0].key;
+          }
+          if (res.permissions[i].perm_name == 'active' && res.permissions[i].required_auth.keys.length > 0) {
+            mem.keys['active'] = res.permissions[i].required_auth.keys[0].key;
+          }
+        }
+        return mem
+      }).catch(e => {console.log('MAPPER: '+e) });
+      members = await pMap(members, mapper, {concurrency: 20 }).then(result => { return result });
+
       console.log(colors.magenta('Saving balance_member_update.sql'));
       var balance_member_sql_stream = fs.createWriteStream("balance_member_update.sql");
       balance_member_sql_stream.once('open', function(fd) {
@@ -84,7 +108,11 @@ class members{
       var member_csv_stream = fs.createWriteStream("members.csv");
       member_csv_stream.once('open', function(fd) {
         members.forEach(i => {
-            member_csv_stream.write(i.sender + "\n");
+            string_to_write = i.sender + ",";
+            string_to_write += i.keys["owner"];
+            string_to_write += ",";
+            string_to_write += i.keys["active"];
+            member_csv_stream.write(string_to_write + "\n");
         });
         member_csv_stream.end();
       });
@@ -101,11 +129,23 @@ class members{
       var voter_csv_stream = fs.createWriteStream("voters.csv");
       voter_csv_stream.once('open', function(fd) {
         voters.forEach(i => {
-            voter_csv_stream.write(i.voter + "\n");
+            for (var j = members.length - 1; j >= 0; j--) {
+              if (members[j].sender == i.voter) {
+                this_member = members[j];
+              }
+            }
+            string_to_write = i.voter + ",";
+            string_to_write += this_member.keys["owner"];
+            string_to_write += ",";
+            string_to_write += this_member.keys["active"];
+            voter_csv_stream.write(string_to_write + "\n");
         });
         voter_csv_stream.end();
       });
+  }
 
+  getAccount(account=''){
+      return this.eos.getAccount(account).then(res => res).catch(e => {console.log(e); return false;})
   }
 
   getMembers(lb=''){
@@ -134,10 +174,6 @@ class members{
           "key_type":"",
           "index_position":""
       }).then(res => res.rows).catch(e => {console.log(e); return false;})
-  }
-
-  getBlockNumber(){
-      return this.eos.getInfo({}).then(res => res).catch(e => {console.log(e); return false});
   }
 }
 
