@@ -96,6 +96,19 @@ class members{
       }).catch(e => {console.log('MAPPER: '+e) });
       members = await pMap(members, mapper, {concurrency: 20 }).then(result => { return result });
 
+      console.log(colors.yellow('Retrieving all member balances! \n') );
+      const balance_mapper = mem => this.getBalance(mem.sender).then(
+        res => {
+          mem.amount = res;
+          return mem
+        }
+      ).catch(
+        e => {
+          console.log('MAPPER: '+e)
+        }
+      );
+      let result = await pMap(members, balance_mapper, {concurrency: 20 }).then(result => { return result });
+
       console.log(colors.magenta('Saving balance_member_update.sql'));
       var balance_member_sql_stream = fs.createWriteStream("balance_member_update.sql");
       balance_member_sql_stream.once('open', function(fd) {
@@ -109,6 +122,7 @@ class members{
       member_csv_stream.once('open', function(fd) {
         members.forEach(i => {
             string_to_write = i.sender + ",";
+            string_to_write += i.amount + ",";
             string_to_write += i.keys["owner"];
             string_to_write += ",";
             string_to_write += i.keys["active"];
@@ -135,6 +149,8 @@ class members{
               }
             }
             string_to_write = i.voter + ",";
+            string_to_write += this_member.amount;
+            string_to_write += ",";
             string_to_write += this_member.keys["owner"];
             string_to_write += ",";
             string_to_write += this_member.keys["active"];
@@ -147,6 +163,23 @@ class members{
   getAccount(account=''){
       return this.eos.getAccount(account).then(res => res).catch(e => {console.log(e); return false;})
   }
+
+  getBalance(account){
+        return this.eos.getCurrencyBalance({code: 'eosdactokens', symbol: 'EOSDAC', account: account }).then(res =>{
+            res = res[0];
+            let bal = res === undefined?0:res;
+            if(!this.verbose){
+                log(colors.green(`${account} -> ${bal}`));
+            }
+            else{
+                console.log(colors.green(`${account} -> ${bal}`) );
+            }
+            
+            return bal;
+            
+        }).catch(e => {console.log(colors.red(`${account} -> ${e} \n` )) })
+  }
+
 
   getMembers(lb=''){
       return this.eos.getTableRows({
