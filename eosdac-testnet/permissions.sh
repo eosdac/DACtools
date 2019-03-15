@@ -14,7 +14,7 @@ echo -e "\n\n----------------- PERMISSIONS -------------------\n\n";
 
 # These have to be set now because they are required in daccustodian_transfer.json
 # These permissions are set in new period to the custodians with each configured threshold
-run_cmd "set account permission $dacauthority high $EOSIO_PUB owner -p $dacauthority@owner"
+run_cmd "set account permission $dacauthority high $EOSIO_PUB active -p $dacauthority@owner"
 run_cmd "set account permission $dacauthority med $EOSIO_PUB high -p $dacauthority@owner"
 run_cmd "set account permission $dacauthority low $EOSIO_PUB med -p $dacauthority@owner"
 run_cmd "set account permission $dacauthority one $EOSIO_PUB low -p $dacauthority@owner"
