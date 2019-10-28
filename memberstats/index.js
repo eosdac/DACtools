@@ -27,7 +27,7 @@ class members{
 		this.eos = eosjs({
 		    chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
 		    keyProvider: null, // WIF string or array of keys..
-		    httpEndpoint: 'https://proxy.eosnode.tools:443',
+		    httpEndpoint: 'https://eu.eosdac.io',
    
 		});
 		console.log('Connected to EOS network!');
@@ -204,7 +204,7 @@ class members{
     getMembers(lb=''){
         return this.eos.getTableRows({
             "json":"true",
-            "scope":"eosdactokens",
+            "scope":"eosdac",
             "code":"eosdactokens",
             "table":"members",
             "lower_bound":lb,
@@ -218,7 +218,7 @@ class members{
     getVoters(lb=''){
         return this.eos.getTableRows({
             "json":"true",
-            "scope":"daccustodian",
+            "scope":"eosdac",
             "code":"daccustodian",
             "table":"votes",
             "lower_bound":lb,
